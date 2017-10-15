@@ -1,17 +1,16 @@
-# image-filtering
 ##   图形处理-滤波
 
 ### 杨兴锋
 
 ### 3015218102
-a
+
 ## 1. 程序运行结果
 
-![屏幕快照 2017-10-15 下午7.05.58](屏幕快照 2017-10-15 下午7.05.58.png)
+![屏幕快照 2017-10-15 下午7.05.58](https://github.com/nerososft/image-filtering/blob/master/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-10-15%20%E4%B8%8B%E5%8D%887.05.58.png?raw=true)
 
 ## 2. 滤波结果
 
-![屏幕快照 2017-10-15 下午7.05.48](屏幕快照 2017-10-15 下午7.05.48.png)
+![屏幕快照 2017-10-15 下午7.05.48](https://raw.githubusercontent.com/nerososft/image-filtering/master/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-10-15%20%E4%B8%8B%E5%8D%887.05.48.png)
 
 ### 说明：结果排列
 
@@ -50,7 +49,7 @@ INCLUDE_DIRECTORIES(/usr/local/Cellar/glew/2.0.0/include /usr/local/Cellar/glfw/
 
 LINK_DIRECTORIES(/usr/local/Cellar/glew/2.0.0/lib /usr/local/Cellar/glfw/3.2.1/lib /System/Library/Frameworks/OpenGL.framework/Libraries)
 
-LINK_LIBRARIES(gl glew glfw GLU png)
+LINK_LIBRARIES(gl glew glfw GLU)
 
 
 add_executable(gp_hw_02 ${SOURCE_FILES})
