@@ -47,12 +47,12 @@ std::vector<std::vector<ColorRGB*>> PNGLoader::loadPNG(char *filename) {
         std::vector<ColorRGB*> color;
         for(int j = 0; j < (4 * m_width); j += 4)
         {
-            this->bgra[pos++] = row_pointers[i][j + 1]; // blue
+            this->bgra[pos++] = row_pointers[i][j + 2]; // blue
             this->bgra[pos++] = row_pointers[i][j + 1]; // green
             this->bgra[pos++] = row_pointers[i][j];   // red
             this->bgra[pos++] = row_pointers[i][j + 3]; // alpha
 
-            color.push_back(new ColorRGB(row_pointers[i][j],row_pointers[i][j + 1],row_pointers[i][j + 1]));
+            color.push_back(new ColorRGB(row_pointers[i][j],row_pointers[i][j + 1],row_pointers[i][j + 2]));
         }
         pixels.push_back(color);
     }
