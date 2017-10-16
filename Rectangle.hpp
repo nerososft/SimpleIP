@@ -10,47 +10,52 @@
 #define Rectangle_hpp
 
 #include <stdio.h>
-class Rectangle{
-private:
-    
-    float x;
-    float y;
-    
-    float width;
-    float height;
-    
-    float r;
-    float g;
-    float b;
-    
-public:
-    Rectangle(float x,
-              float y,
-              float width,
-              float height,
-              float r,
-              float g,
-              float b);
+namespace OpenIP {
+    class Rectangle {
+    private:
 
-    void setX(float x){
-        this->x = x;
-    };
-    void setY(float y){
-        this->y = y;
-    };
-    void setWidth(float width){
-        this->width = width;
-    };
-    void setHeight(float height){
-        this->height = height;
-    };
+        float x;
+        float y;
 
-    void setColor(float r,float g,float b){
-        this->r =r;
-        this->g = g;
-        this->b = b;
-    }
+        float width;
+        float height;
 
-    void draw();
-};
+        float r;
+        float g;
+        float b;
+
+    public:
+        Rectangle(float x,
+                  float y,
+                  float width,
+                  float height,
+                  float r,
+                  float g,
+                  float b);
+
+        void setX(float x) {
+            this->x = x;
+        };
+
+        void setY(float y) {
+            this->y = y;
+        };
+
+        void setWidth(float width) {
+            this->width = width;
+        };
+
+        void setHeight(float height) {
+            this->height = height;
+        };
+
+        void setColor(float r, float g, float b) {
+            this->r = r;
+            this->g = g;
+            this->b = b;
+        }
+
+        void draw();
+    };
+}
 #endif /* Rectangle_hpp */

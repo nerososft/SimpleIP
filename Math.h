@@ -5,14 +5,15 @@
 #ifndef GP_HW_02_MATH_H
 #define GP_HW_02_MATH_H
 
+namespace OpenIP {
 
-class Math {
+    class Math {
 
-public:
-    Math();
+    public:
+        Math();
 
-    void quickSort(float s[], int l, int r);
-};
+        void quickSort(float s[], int l, int r);
+    };
 
-
+}
 #endif //GP_HW_02_MATH_H

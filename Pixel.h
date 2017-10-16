@@ -9,29 +9,30 @@
 #include "ColorRGB.h"
 #include "Rectangle.hpp"
 
-class Pixel {
+namespace OpenIP {
+    class Pixel {
 
-private:
-    int x;
-    int y;
-    ColorRGB* color;
-    Rectangle *rectangle;
+    private:
+        int x;
+        int y;
+        ColorRGB *color;
+        Rectangle *rectangle;
 
-public:
-    Pixel(int x, int y, ColorRGB *color);
-
-
-    ColorRGB* getColor(){return this->color;};
+    public:
+        Pixel(int x, int y, ColorRGB *color);
 
 
-    void setColor(ColorRGB* color){this->rectangle->setColor(color->R(),color->G(),color->B());};
+        ColorRGB *getColor() { return this->color; };
 
 
-    void normalize(int width,int height);
+        void setColor(ColorRGB *color) { this->rectangle->setColor(color->R(), color->G(), color->B()); };
 
 
-    void render();
-};
+        void normalize(int width, int height);
 
+
+        void render();
+    };
+}
 
 #endif //GP_HW_02_PIXEL_H

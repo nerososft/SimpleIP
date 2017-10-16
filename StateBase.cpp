@@ -7,5 +7,6 @@
 //
 
 #include "StateBase.hpp"
-
-StateBase * StateBase::event_handling_instance;
+namespace OpenIP {
+    StateBase *StateBase::event_handling_instance;
+}
