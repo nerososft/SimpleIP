@@ -43,6 +43,11 @@ namespace OpenIP {
 
     void PixelMap::setX(int x) {
         PixelMap::x = x;
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                pixelMap[i][j]->setX(x+pixelMap[i][j]->getX());
+            }
+        }
     }
 
     int PixelMap::getY() const {

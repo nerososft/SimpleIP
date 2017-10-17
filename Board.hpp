@@ -55,12 +55,9 @@ namespace OpenIP {
         PixelMap *nixie;        //逆谐波
 
 
-        Font* O = new Font("default.otf", FONT_MODE::TRANSPARENT,new ColorRGB(255,255,255), new ColorRGB(0,255,0), 500, 500,100, 200);
-        Font* p = new Font("default.otf", FONT_MODE::TRANSPARENT,new ColorRGB(255,255,255), new ColorRGB(0,255,0), 500, 500,180, 200);
-        Font* e = new Font("default.otf", FONT_MODE::TRANSPARENT,new ColorRGB(255,255,255), new ColorRGB(0,255,0), 500, 500,260, 200);
-        Font* n = new Font("default.otf", FONT_MODE::TRANSPARENT,new ColorRGB(255,255,255), new ColorRGB(0,255,0), 500, 500,340, 200);
-        Font* I = new Font("default.otf", FONT_MODE::TRANSPARENT,new ColorRGB(0,255,0), new ColorRGB(0,255,0), 500, 500,420, 200);
-        Font* P = new Font("default.otf", FONT_MODE::TRANSPARENT,new ColorRGB(0,255,0), new ColorRGB(0,255,0), 500, 500,500, 200);
+        Font* Open = new Font("default.otf", FONT_MODE::TRANSPARENT,new ColorRGB(255,255,255), new ColorRGB(0,255,0), 500, 500,100, 200);
+
+        Font* IP = new Font("default.otf", FONT_MODE::TRANSPARENT,new ColorRGB(0,255,0), new ColorRGB(0,255,0), 500, 500,420, 200);
 
 
 

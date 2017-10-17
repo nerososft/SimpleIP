@@ -24,13 +24,19 @@ namespace OpenIP {
         FONT_MODE  font_mode;
 
         PixelMap* fontPixels;
-
+        std::vector<PixelMap*> stringPixels;
         ColorRGB* foreColor;
 
         ColorRGB* backColor;
 
         int width;
         int height;
+
+        int bitMapWidth;
+        int bitmapHeight;
+
+        int charLen;
+        std::vector<int> charLenV;
 
         int x;
         int y;
@@ -39,6 +45,7 @@ namespace OpenIP {
         FT_Face        pFTFace         =  NULL;
         FT_Error    error         =   0 ;
 
+        PixelMap* getCharPixelMap(char c);
 
     public:
         void loadFont();

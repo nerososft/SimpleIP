@@ -14,7 +14,7 @@ namespace OpenIP{
     void Font::loadFont(){
     }
 
-    void Font::draw(char c){
+    PixelMap* Font::getCharPixelMap(char c) {
         error  =  FT_Init_FreeType( & pFTLib);
         if (error)
         {
@@ -38,6 +38,10 @@ namespace OpenIP{
                 FT_BitmapGlyph    bitmap_glyph  =  (FT_BitmapGlyph)glyph;
                 FT_Bitmap &     bitmap  =  bitmap_glyph -> bitmap;
 
+                bitMapWidth = bitmap.width;
+                bitmapHeight = bitmap.rows;
+
+                charLenV.push_back(bitmapHeight);
 
                 fontPixels = new PixelMap(x,y,bitmap.rows,bitmap.width,backColor);
                 std::vector<std::vector<Pixel*>> font;
@@ -65,6 +69,7 @@ namespace OpenIP{
 
                 fontPixels->setPixelMap(font);
                 fontPixels->flipUpDown();
+
                 FT_Done_Glyph(glyph);
                 glyph  =  NULL;
             }
@@ -77,17 +82,39 @@ namespace OpenIP{
 
         FT_Done_FreeType(pFTLib);
         pFTLib  =  NULL;
+
+        return fontPixels;
+    }
+
+    void Font::draw(char c){
+        this->getCharPixelMap(c);
     }
     void Font::normalize(int width, int height){
-        this->fontPixels->normalize(width,height);
+        for(int i = 0;i<charLen;i++) {
+            this->stringPixels[i]->normalize(width, height);
+        }
     }
 
     void Font::draw(char* ch){
-
+        int charNum = strlen(ch);
+        charLen = charNum;
+        for(int i = 0;i<charNum;i++){
+            PixelMap* pp = getCharPixelMap(ch[i]);//new PixelMap(x,y,bitmapHeight,bitMapWidth,backColor);
+            if(i!=0) {
+                int w = 0;
+                for(int j = 0;j<i;j++){
+                    w+=charLenV[j];
+                }
+                pp->setX(w);
+            }
+            stringPixels.push_back(pp);
+        }
     }
 
     void Font::render(){
-        this->fontPixels->render();
+        for(int i = 0;i<charLen;i++){
+            this->stringPixels[i]->render();
+        }
     }
 
     Font::Font(char *ttfPath, FONT_MODE font_mode,  ColorRGB *foreColor, ColorRGB *backColor, int width, int height, int x, int y) : ttfPath(ttfPath), font_mode(font_mode), fontPixels(fontPixels), foreColor(foreColor), backColor(backColor), width(width), height(height), x(x),
