@@ -31,4 +31,8 @@ namespace OpenIP {
         }
     }
 
+    void PixelMap::changeColor(int i,int j,ColorRGB* color){
+        this->pixelMap[i][j]->setColor(color);
+    }
+
 }

@@ -50,23 +50,9 @@ namespace OpenIP {
                 this->bgra[pos++] = row_pointers[i][j];   // red
                 this->bgra[pos++] = row_pointers[i][j + 3]; // alpha
 
-<<<<<<< HEAD
                 color.push_back(new ColorRGB(row_pointers[i][j], row_pointers[i][j + 1], row_pointers[i][j + 2]));
             }
             pixels.push_back(color);
-=======
-    for(int i = 0; i < m_height; i++)
-    {
-        std::vector<ColorRGB*> color;
-        for(int j = 0; j < (4 * m_width); j += 4)
-        {
-            this->bgra[pos++] = row_pointers[i][j + 2]; // blue
-            this->bgra[pos++] = row_pointers[i][j + 1]; // green
-            this->bgra[pos++] = row_pointers[i][j];   // red
-            this->bgra[pos++] = row_pointers[i][j + 3]; // alpha
-
-            color.push_back(new ColorRGB(row_pointers[i][j],row_pointers[i][j + 1],row_pointers[i][j + 2]));
->>>>>>> 6f283d08f6afa0fd170b4dbdac7de3b524080bbd
         }
 
         png_destroy_read_struct(&png_ptr, &info_ptr, 0);

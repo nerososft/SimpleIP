@@ -26,6 +26,8 @@ namespace OpenIP {
             this->pixelMap = pixelmap;
         };
 
+        void changeColor(int i,int j,ColorRGB* color);
+
         void normalize(int width, int height);
 
         std::vector<std::vector<Pixel *>> getPixelMap() { return this->pixelMap; };
