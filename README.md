@@ -31,7 +31,16 @@ OpenIP::Board* board = new OpenIP::Board("MyWindow",640,480,new OpenIP::ColorRGB
         std::vector<std::vector<ColorRGB *>> pixelsMap = pngloader->loadPNG("yz.png");
 ```
 
-### 2. PixelMap 像素矩阵
+### 2.读取图像到PixelMap
+
+```c++
+PixelMap* pixelMap = new PixelMap(0, 0, width, height, new ColorRGB(255, 255, 255));
+        pngLoader->loadPNGToPixelMap("yz.png",pixelMap);
+```
+
+
+
+### 3. PixelMap 像素矩阵
 
 ```c++
 PixelMap* pixelmap = new PixelMap(0, 0, this->width / 4, this->height / 2, new ColorRGB(255, 255, 255));
