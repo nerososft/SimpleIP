@@ -18,116 +18,51 @@
 namespace OpenIP {
     Board::Board(char *title, int width, int height, ColorRGB *backGround) : title(title), width(width), height(height), backGround(backGround) {
         yuantu = new PixelMap(0, 0, this->width / 4, this->height / 2, new ColorRGB(255, 255, 255));
-        for (int i = 0; i < this->width / 4; i++) {
-            std::vector<Pixel *> pp;
-            for (int j = 0; j < this->height / 2; j++) {
-                pp.push_back(new Pixel(i, j, pixelsMap[j][i]));
-            }
-            pixels.push_back(pp);
-        }
-
-        yuantu->setPixelMap(pixels);
+        pngLoader->loadPNGToPixelMap("yz.png",yuantu);
         yuantu->normalize(width, height);
 
 
         zhongzhi = new PixelMap((this->width / 4), 0, this->width / 4, this->height / 2, new ColorRGB(255, 0, 255));
-        for (int i = 0; i < this->width / 4; i++) {
-            std::vector<Pixel *> pp;
-            for (int j = 0; j < this->height / 2; j++) {
-                pp.push_back(new Pixel(width / 4+i, j, pixelsMap[j][i]));
-            }
-            pixels_zhong.push_back(pp);
-        }
-        zhongzhi->setPixelMap(pixels_zhong);
+        pngLoader->loadPNGToPixelMap("yz.png",zhongzhi);
         Fliter* fliter = new Fliter(zhongzhi);
         zhongzhi = fliter->median();
         zhongzhi->normalize(width, height);
 
 
         zuidazhi = new PixelMap((this->width / 4) * 2, 0, this->width / 4, this->height / 2, new ColorRGB(255, 255, 255));
-        for (int i = 0; i < this->width / 4; i++) {
-            std::vector<Pixel *> pp;
-            for (int j = 0; j < this->height / 2; j++) {
-                pp.push_back(new Pixel((this->width / 4) * 2 + i, j, pixelsMap[j][i]));
-            }
-            pixels_zuida.push_back(pp);
-        }
-
-        zuidazhi->setPixelMap(pixels_zuida);
+        pngLoader->loadPNGToPixelMap("yz.png",zuidazhi);
         Fliter* fliterzuida = new Fliter(zuidazhi);
         zuidazhi = fliterzuida->max();
         zuidazhi->normalize(width, height);
 
         zuixiaozhi = new PixelMap((this->width / 4) * 3, 0, this->width / 4, this->height / 2, new ColorRGB(255, 255, 255));
-        for (int i = 0; i < this->width / 4; i++) {
-            std::vector<Pixel *> pp;
-            for (int j = 0; j < this->height / 2; j++) {
-                pp.push_back(new Pixel((this->width / 4) * 3 + i, j, pixelsMap[j][i]));
-            }
-            pixels_zuixiao.push_back(pp);
-        }
-        zuixiaozhi->setPixelMap(pixels_zuixiao);
+        pngLoader->loadPNGToPixelMap("yz.png",zuixiaozhi);
         Fliter* fliterzuixiao = new Fliter(zuixiaozhi);
         zuixiaozhi = fliterzuixiao->min();
         zuixiaozhi->normalize(width, height);
 
 
         suanshu = new PixelMap(0, this->height / 2, this->width / 4, this->height / 2, new ColorRGB(255, 255, 255));
-        for (int i = 0; i < this->width / 4; i++) {
-            std::vector<Pixel *> pp;
-            for (int j = 0; j < this->height / 2; j++) {
-                pp.push_back(new Pixel(i, j + this->height / 2, pixelsMap[j][i]));
-            }
-            pixels_suanshu.push_back(pp);
-
-        }
-        suanshu->setPixelMap(pixels_suanshu);
+        pngLoader->loadPNGToPixelMap("yz.png",suanshu);
         Fliter* flitersuanshu = new Fliter(suanshu);
         suanshu = flitersuanshu->arithmetic_mean();
         suanshu->normalize(width, height);
 
 
         jihe = new PixelMap((this->width / 4), this->height / 2, this->width / 4, this->height / 2, new ColorRGB(255, 255, 255));
-        for (int i = 0; i < this->width / 4; i++) {
-            std::vector<Pixel *> pp;
-            for (int j = 0; j < this->height / 2; j++) {
-                pp.push_back(new Pixel((this->width / 4) + i, j + this->height / 2, pixelsMap[j][i]));
-            }
-            pixels_jihe.push_back(pp);
-        }
-
-
-        jihe->setPixelMap(pixels_jihe);
+        pngLoader->loadPNGToPixelMap("yz.png",jihe);
         Fliter* fliterjihe = new Fliter(jihe);
         jihe = fliterjihe->geometric_mean();
         jihe->normalize(width, height);
 
         xie = new PixelMap((this->width / 4) * 2, this->height / 2, this->width / 4, this->height / 2, new ColorRGB(255, 255, 255));
-        for (int i = 0; i < this->width / 4; i++) {
-            std::vector<Pixel *> pp;
-            for (int j = 0; j < this->height / 2; j++) {
-                pp.push_back(new Pixel((this->width / 4) * 2 + i, j + this->height / 2, pixelsMap[j][i]));
-            }
-            pixels_xie.push_back(pp);
-        }
-
-
-        xie->setPixelMap(pixels_xie);
+        pngLoader->loadPNGToPixelMap("yz.png",xie);
         Fliter* fliterxie = new Fliter(xie);
         xie = fliterxie->harmonics();
         xie->normalize(width, height);
 
         nixie = new PixelMap((this->width / 4) * 3, this->height / 2, this->width / 4, this->height / 2, new ColorRGB(255, 255, 255));
-        for (int i = 0; i < this->width / 4; i++) {
-            std::vector<Pixel *> pp;
-            for (int j = 0; j < this->height / 2; j++) {
-                pp.push_back(new Pixel((this->width / 4) * 3 + i, j + this->height / 2, pixelsMap[j][i]));
-            }
-            pixels_niexie.push_back(pp);
-        }
-
-
-        nixie->setPixelMap(pixels_niexie);
+        pngLoader->loadPNGToPixelMap("yz.png",nixie);
         Fliter* fliternixie = new Fliter(nixie);
         nixie = fliternixie->inverse_harmonic();
         nixie->normalize(width, height);

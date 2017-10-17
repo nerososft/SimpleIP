@@ -35,4 +35,44 @@ namespace OpenIP {
         this->pixelMap[i][j]->setColor(color);
     }
 
+    int PixelMap::getX() const {
+        return x;
+    }
+
+    void PixelMap::setX(int x) {
+        PixelMap::x = x;
+    }
+
+    int PixelMap::getY() const {
+        return y;
+    }
+
+    void PixelMap::setY(int y) {
+        PixelMap::y = y;
+    }
+
+    int PixelMap::getHeight() const {
+        return height;
+    }
+
+    void PixelMap::setHeight(int height) {
+        PixelMap::height = height;
+    }
+
+    int PixelMap::getWidth() const {
+        return width;
+    }
+
+    void PixelMap::setWidth(int width) {
+        PixelMap::width = width;
+    }
+
+    ColorRGB *PixelMap::getBackgroundColor() const {
+        return backgroundColor;
+    }
+
+    void PixelMap::setBackgroundColor(ColorRGB *backgroundColor) {
+        PixelMap::backgroundColor = backgroundColor;
+    }
+
 }

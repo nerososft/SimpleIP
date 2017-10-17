@@ -8,6 +8,7 @@
 
 #include <vector>
 #include "ColorRGB.h"
+#include "PixelMap.h"
 
 namespace  OpenIP {
     class PNGLoader {
@@ -18,6 +19,8 @@ namespace  OpenIP {
         std::vector<std::vector<ColorRGB *>> pixels;
 
         unsigned char *bgra;
+
+        PixelMap* pixelMap;
 
 
     public:
@@ -33,6 +36,8 @@ namespace  OpenIP {
 
 
         std::vector<std::vector<ColorRGB *>> loadPNG(char *filename);
+
+        void loadPNGToPixelMap(char *filename,PixelMap* pixelMap1);
     };
 }
 

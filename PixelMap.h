@@ -36,9 +36,25 @@ namespace OpenIP {
 
         void render();
 
-        int getWidth() { return this->width; };
+        int getX() const;
 
-        int getHeight() { return this->height; };
+        void setX(int x);
+
+        int getY() const;
+
+        void setY(int y);
+
+        int getHeight() const;
+
+        void setHeight(int height);
+
+        int getWidth() const;
+
+        void setWidth(int width);
+
+        ColorRGB *getBackgroundColor() const;
+
+        void setBackgroundColor(ColorRGB *backgroundColor);
     };
 }
 

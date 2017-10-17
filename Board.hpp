@@ -28,8 +28,8 @@ namespace OpenIP {
         int height;
         ColorRGB *backGround;
 
-        PNGLoader *pngloader = new PNGLoader();
-        std::vector<std::vector<ColorRGB *>> pixelsMap = pngloader->loadPNG("yz.png");
+
+        PNGLoader* pngLoader = new PNGLoader();
 
         std::vector<std::vector<Pixel *>> pixels;
         std::vector<std::vector<Pixel *>> pixels_zhong;
