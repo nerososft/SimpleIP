@@ -68,8 +68,18 @@ namespace OpenIP {
         nixie->normalize(width, height);
 
 
-        font->draw('a');
-        font->normalize(width,height);
+        O->draw('O');
+        O->normalize(width,height);
+        p->draw('p');
+        p->normalize(width,height);
+        e->draw('e');
+        e->normalize(width,height);
+        n->draw('n');
+        n->normalize(width,height);
+        I->draw('I');
+        I->normalize(width,height);
+        P->draw('P');
+        P->normalize(width,height);
     }
 
     void Board::keycallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
@@ -117,7 +127,12 @@ namespace OpenIP {
         xie->render();
         nixie->render();
 
-        font->render();
+        O->render();
+        p->render();
+        e->render();
+        n->render();
+        I->render();
+        P->render();
     }
 
     void Board::Render() {

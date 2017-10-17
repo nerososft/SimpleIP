@@ -49,9 +49,14 @@ namespace OpenIP{
                     {
                         //  if it has gray>0 we set show it as 1, o otherwise
                         if(bitmap.buffer[i * bitmap.width + j]){
-                            fo.push_back(new Pixel(x+i,y+j,foreColor));
+                            Pixel* pixel = new Pixel(x+j,y+i,foreColor);
+                            fo.push_back(pixel);
                         }else{
-                            fo.push_back(new Pixel(x+i,y+j,backColor));
+                            Pixel* pixel = new Pixel(x+j,y+i,backColor);
+                            if(this->font_mode==FONT_MODE::TRANSPARENT) {
+                                pixel->setIsTransperent(true);
+                            }
+                            fo.push_back(pixel);
                         }
                         //printf( " %d " , bitmap.buffer[i * bitmap.width + j] ? 1 : 0 );
                     }
@@ -59,9 +64,11 @@ namespace OpenIP{
                 }
 
                 fontPixels->setPixelMap(font);
+                fontPixels->flipUpDown();
                 FT_Done_Glyph(glyph);
                 glyph  =  NULL;
             }
+
 
             FT_Done_Face(pFTFace);
             pFTFace  =  NULL;
@@ -85,6 +92,4 @@ namespace OpenIP{
 
     Font::Font(char *ttfPath, FONT_MODE font_mode,  ColorRGB *foreColor, ColorRGB *backColor, int width, int height, int x, int y) : ttfPath(ttfPath), font_mode(font_mode), fontPixels(fontPixels), foreColor(foreColor), backColor(backColor), width(width), height(height), x(x),
                                                                                                                                                           y(y) {}
-
-
 }

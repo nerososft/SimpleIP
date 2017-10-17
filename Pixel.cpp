@@ -6,6 +6,7 @@
 
 namespace OpenIP {
     Pixel::Pixel(int x, int y, ColorRGB *color) : x(x), y(y), color(color) {
+        isTransperent = false;
         this->rectangle = new Rectangle(0, 0, 0, 0, color->R(), color->G(), color->B());
     }
 
@@ -18,6 +19,30 @@ namespace OpenIP {
 
     void Pixel::render() {
         this->rectangle->draw();
+    }
+
+    int Pixel::getX() const {
+        return x;
+    }
+
+    void Pixel::setX(int x) {
+        Pixel::x = x;
+    }
+
+    int Pixel::getY() const {
+        return y;
+    }
+
+    void Pixel::setY(int y) {
+        Pixel::y = y;
+    }
+
+    bool Pixel::isIsTransperent() const {
+        return isTransperent;
+    }
+
+    void Pixel::setIsTransperent(bool isTransperent) {
+        Pixel::isTransperent = isTransperent;
     }
 
 }

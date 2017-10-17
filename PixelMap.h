@@ -30,6 +30,8 @@ namespace OpenIP {
 
         void normalize(int width, int height);
 
+        void flipUpDown();
+
         std::vector<std::vector<Pixel *>> getPixelMap() { return this->pixelMap; };
 
         PixelMap(int x, int y, int width, int height, ColorRGB *backgroundColor);

@@ -16,7 +16,9 @@ namespace OpenIP {
     void PixelMap::render() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                pixelMap[i][j]->render();
+                if(!pixelMap[i][j]->isIsTransperent()) {
+                    pixelMap[i][j]->render();
+                }
             }
         }
     }
@@ -73,6 +75,18 @@ namespace OpenIP {
 
     void PixelMap::setBackgroundColor(ColorRGB *backgroundColor) {
         PixelMap::backgroundColor = backgroundColor;
+    }
+
+    void PixelMap::flipUpDown(){
+        int temp;
+        int i,j;
+        for (i=0; i<(width/2); i++) {
+            for (j=0; j<height; j++) {
+                temp = pixelMap[i][j]->getY();
+                pixelMap[i][j]->setY(pixelMap[width-i-1][j]->getY());
+                pixelMap[width-i-1][j]->setY(temp);
+            }
+        }
     }
 
 }

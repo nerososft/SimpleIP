@@ -17,6 +17,7 @@ namespace OpenIP {
         int y;
         ColorRGB *color;
         Rectangle *rectangle;
+        bool isTransperent = false;
 
     public:
         Pixel(int x, int y, ColorRGB *color);
@@ -30,8 +31,19 @@ namespace OpenIP {
 
         void normalize(int width, int height);
 
+        int getX() const;
+
+        void setX(int x);
+
+        int getY() const;
+
+        void setY(int y);
 
         void render();
+
+        bool isIsTransperent() const;
+
+        void setIsTransperent(bool isTransperent);
     };
 }
 
