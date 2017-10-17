@@ -30,6 +30,7 @@ namespace OpenIP {
 
 
         PNGLoader* pngLoader = new PNGLoader();
+        std::vector<std::vector<ColorRGB *>> colorVector = pngLoader->loadPNG("yz.png");
 
         std::vector<std::vector<Pixel *>> pixels;
         std::vector<std::vector<Pixel *>> pixels_zhong;

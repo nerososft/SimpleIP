@@ -38,6 +38,8 @@ namespace  OpenIP {
         std::vector<std::vector<ColorRGB *>> loadPNG(char *filename);
 
         void loadPNGToPixelMap(char *filename,PixelMap* pixelMap1);
+
+        void colorVectorToPixelMap(std::vector<std::vector<ColorRGB *>> colorVector,PixelMap* pixelMap1);
     };
 }
 

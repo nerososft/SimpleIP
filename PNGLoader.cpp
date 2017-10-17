@@ -77,6 +77,19 @@ namespace OpenIP {
         pixelMap1->setPixelMap(pixels);
     }
 
+    void PNGLoader::colorVectorToPixelMap(std::vector<std::vector<ColorRGB *>> colorVector,PixelMap* pixelMap1){
+        pixelMap1->setWidth(this->width);
+        pixelMap1->setHeight(this->height);
+        std::vector<std::vector<Pixel *>> pixels;
+        for (int i = 0; i < this->width; i++) {
+            std::vector<Pixel *> pp;
+            for (int j = 0; j < this->height; j++) {
+                pp.push_back(new Pixel(pixelMap1->getX()+i, pixelMap1->getY()+j, colorVector[j][i]));
+            }
+            pixels.push_back(pp);
+        }
+        pixelMap1->setPixelMap(pixels);
+    }
 
     PNGLoader::PNGLoader() {
         this->width = 160;

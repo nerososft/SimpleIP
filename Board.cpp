@@ -18,51 +18,51 @@
 namespace OpenIP {
     Board::Board(char *title, int width, int height, ColorRGB *backGround) : title(title), width(width), height(height), backGround(backGround) {
         yuantu = new PixelMap(0, 0, this->width / 4, this->height / 2, new ColorRGB(255, 255, 255));
-        pngLoader->loadPNGToPixelMap("yz.png",yuantu);
+        pngLoader->colorVectorToPixelMap(colorVector,yuantu);
         yuantu->normalize(width, height);
 
 
         zhongzhi = new PixelMap((this->width / 4), 0, this->width / 4, this->height / 2, new ColorRGB(255, 0, 255));
-        pngLoader->loadPNGToPixelMap("yz.png",zhongzhi);
+        pngLoader->colorVectorToPixelMap(colorVector,zhongzhi);
         Fliter* fliter = new Fliter(zhongzhi);
         zhongzhi = fliter->median();
         zhongzhi->normalize(width, height);
 
 
         zuidazhi = new PixelMap((this->width / 4) * 2, 0, this->width / 4, this->height / 2, new ColorRGB(255, 255, 255));
-        pngLoader->loadPNGToPixelMap("yz.png",zuidazhi);
+        pngLoader->colorVectorToPixelMap(colorVector,zuidazhi);
         Fliter* fliterzuida = new Fliter(zuidazhi);
         zuidazhi = fliterzuida->max();
         zuidazhi->normalize(width, height);
 
         zuixiaozhi = new PixelMap((this->width / 4) * 3, 0, this->width / 4, this->height / 2, new ColorRGB(255, 255, 255));
-        pngLoader->loadPNGToPixelMap("yz.png",zuixiaozhi);
+        pngLoader->colorVectorToPixelMap(colorVector,zuixiaozhi);
         Fliter* fliterzuixiao = new Fliter(zuixiaozhi);
         zuixiaozhi = fliterzuixiao->min();
         zuixiaozhi->normalize(width, height);
 
 
         suanshu = new PixelMap(0, this->height / 2, this->width / 4, this->height / 2, new ColorRGB(255, 255, 255));
-        pngLoader->loadPNGToPixelMap("yz.png",suanshu);
+        pngLoader->colorVectorToPixelMap(colorVector,suanshu);
         Fliter* flitersuanshu = new Fliter(suanshu);
         suanshu = flitersuanshu->arithmetic_mean();
         suanshu->normalize(width, height);
 
 
         jihe = new PixelMap((this->width / 4), this->height / 2, this->width / 4, this->height / 2, new ColorRGB(255, 255, 255));
-        pngLoader->loadPNGToPixelMap("yz.png",jihe);
+        pngLoader->colorVectorToPixelMap(colorVector,jihe);
         Fliter* fliterjihe = new Fliter(jihe);
         jihe = fliterjihe->geometric_mean();
         jihe->normalize(width, height);
 
         xie = new PixelMap((this->width / 4) * 2, this->height / 2, this->width / 4, this->height / 2, new ColorRGB(255, 255, 255));
-        pngLoader->loadPNGToPixelMap("yz.png",xie);
+        pngLoader->colorVectorToPixelMap(colorVector,xie);
         Fliter* fliterxie = new Fliter(xie);
         xie = fliterxie->harmonics();
         xie->normalize(width, height);
 
         nixie = new PixelMap((this->width / 4) * 3, this->height / 2, this->width / 4, this->height / 2, new ColorRGB(255, 255, 255));
-        pngLoader->loadPNGToPixelMap("yz.png",nixie);
+        pngLoader->colorVectorToPixelMap(colorVector,nixie);
         Fliter* fliternixie = new Fliter(nixie);
         nixie = fliternixie->inverse_harmonic();
         nixie->normalize(width, height);
