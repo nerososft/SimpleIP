@@ -57,9 +57,7 @@ namespace OpenIP {
 
         Font* Open = new Font("default.otf", FONT_MODE::TRANSPARENT,new ColorRGB(255,255,255), new ColorRGB(0,255,0), 500, 500,100, 200);
 
-        Font* IP = new Font("default.otf", FONT_MODE::TRANSPARENT,new ColorRGB(0,255,0), new ColorRGB(0,255,0), 500, 500,420, 200);
-
-
+        Font* IP = new Font("ip2.TTF", FONT_MODE::TRANSPARENT,new ColorRGB(0,255,0), new ColorRGB(0,255,0), 500, 500,400, 200);
 
     public:
         Board(char *title, int width, int height, ColorRGB *backGround);

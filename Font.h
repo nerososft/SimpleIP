@@ -38,6 +38,8 @@ namespace OpenIP {
         int charLen;
         std::vector<int> charLenV;
 
+        int spacing = 10;
+
         int x;
         int y;
 
@@ -59,6 +61,11 @@ namespace OpenIP {
         void normalize(int width, int height);
 
         Font(char *ttfPath, FONT_MODE font_mode, ColorRGB *foreColor, ColorRGB *backColor, int width, int height, int x, int y);
+
+
+        int getSpacing() const;
+
+        void setSpacing(int spacing);
     };
 }
 

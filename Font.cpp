@@ -22,13 +22,13 @@ namespace OpenIP{
             printf( " There is some error when Init Library " );
         }
 
-        error  =  FT_New_Face(pFTLib,  "default.otf" ,  0 ,  & pFTFace);
+        error  =  FT_New_Face(pFTLib,  this->ttfPath ,  0 ,  & pFTFace);
         if ( ! error)
         {
 
             FT_Set_Char_Size(pFTFace,  16 << 6 ,  16 << 6 ,  this->width ,  this->height );
             FT_Glyph    glyph;
-            //  load glyph 'C'
+
             FT_Load_Glyph(pFTFace, FT_Get_Char_Index(pFTFace,  int(c) ), FT_LOAD_DEFAULT);
             error  =  FT_Get_Glyph(pFTFace -> glyph,  & glyph);
             if ( ! error)
@@ -41,7 +41,7 @@ namespace OpenIP{
                 bitMapWidth = bitmap.width;
                 bitmapHeight = bitmap.rows;
 
-                charLenV.push_back(bitmapHeight);
+                charLenV.push_back(bitMapWidth);
 
                 fontPixels = new PixelMap(x,y,bitmap.rows,bitmap.width,backColor);
                 std::vector<std::vector<Pixel*>> font;
@@ -103,7 +103,7 @@ namespace OpenIP{
             if(i!=0) {
                 int w = 0;
                 for(int j = 0;j<i;j++){
-                    w+=charLenV[j];
+                    w+=charLenV[j]+spacing;
                 }
                 pp->setX(w);
             }
@@ -119,4 +119,12 @@ namespace OpenIP{
 
     Font::Font(char *ttfPath, FONT_MODE font_mode,  ColorRGB *foreColor, ColorRGB *backColor, int width, int height, int x, int y) : ttfPath(ttfPath), font_mode(font_mode), fontPixels(fontPixels), foreColor(foreColor), backColor(backColor), width(width), height(height), x(x),
                                                                                                                                                           y(y) {}
+
+    int Font::getSpacing() const {
+        return spacing;
+    }
+
+    void Font::setSpacing(int spacing) {
+        Font::spacing = spacing;
+    }
 }
