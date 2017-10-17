@@ -16,6 +16,7 @@
 #include "StateBase.hpp"
 #include "PixelMap.h"
 #include "PNGLoader.h"
+#include "Font.h"
 #include <vector>
 
 
@@ -52,6 +53,9 @@ namespace OpenIP {
         PixelMap *jihe;         //几何均值
         PixelMap *xie;          //谐波
         PixelMap *nixie;        //逆谐波
+
+
+        Font* font = new Font("default.otf", FONT_MODE::SOLID,new ColorRGB(255,0,0), new ColorRGB(0,255,0), 500, 500,100, 100);
 
 
     public:

@@ -66,6 +66,10 @@ namespace OpenIP {
         Fliter* fliternixie = new Fliter(nixie);
         nixie = fliternixie->inverse_harmonic();
         nixie->normalize(width, height);
+
+
+        font->draw('a');
+        font->normalize(width,height);
     }
 
     void Board::keycallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
@@ -113,6 +117,7 @@ namespace OpenIP {
         xie->render();
         nixie->render();
 
+        font->render();
     }
 
     void Board::Render() {
