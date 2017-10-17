@@ -40,7 +40,7 @@ namespace OpenIP {
         }
         zhongzhi->setPixelMap(pixels_zhong);
         Fliter* fliter = new Fliter(zhongzhi);
-        fliter->median();
+        zhongzhi = fliter->median();
         zhongzhi->normalize(width, height);
 
 
@@ -52,9 +52,10 @@ namespace OpenIP {
             }
             pixels_zuida.push_back(pp);
         }
+
         zuidazhi->setPixelMap(pixels_zuida);
         Fliter* fliterzuida = new Fliter(zuidazhi);
-        fliterzuida->max();
+        zuidazhi = fliterzuida->max();
         zuidazhi->normalize(width, height);
 
         zuixiaozhi = new PixelMap((this->width / 4) * 3, 0, this->width / 4, this->height / 2, new ColorRGB(255, 255, 255));
@@ -67,7 +68,7 @@ namespace OpenIP {
         }
         zuixiaozhi->setPixelMap(pixels_zuixiao);
         Fliter* fliterzuixiao = new Fliter(zuixiaozhi);
-        fliterzuixiao->min();
+        zuixiaozhi = fliterzuixiao->min();
         zuixiaozhi->normalize(width, height);
 
 
@@ -82,7 +83,7 @@ namespace OpenIP {
         }
         suanshu->setPixelMap(pixels_suanshu);
         Fliter* flitersuanshu = new Fliter(suanshu);
-        flitersuanshu->arithmetic_mean();
+        suanshu = flitersuanshu->arithmetic_mean();
         suanshu->normalize(width, height);
 
 
@@ -98,7 +99,7 @@ namespace OpenIP {
 
         jihe->setPixelMap(pixels_jihe);
         Fliter* fliterjihe = new Fliter(jihe);
-        fliterjihe->geometric_mean();
+        jihe = fliterjihe->geometric_mean();
         jihe->normalize(width, height);
 
         xie = new PixelMap((this->width / 4) * 2, this->height / 2, this->width / 4, this->height / 2, new ColorRGB(255, 255, 255));
@@ -113,7 +114,7 @@ namespace OpenIP {
 
         xie->setPixelMap(pixels_xie);
         Fliter* fliterxie = new Fliter(xie);
-        fliterxie->harmonics();
+        xie = fliterxie->harmonics();
         xie->normalize(width, height);
 
         nixie = new PixelMap((this->width / 4) * 3, this->height / 2, this->width / 4, this->height / 2, new ColorRGB(255, 255, 255));
@@ -128,7 +129,7 @@ namespace OpenIP {
 
         nixie->setPixelMap(pixels_niexie);
         Fliter* fliternixie = new Fliter(nixie);
-        fliternixie->inverse_harmonic();
+        nixie = fliternixie->inverse_harmonic();
         nixie->normalize(width, height);
     }
 

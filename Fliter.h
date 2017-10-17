@@ -18,14 +18,14 @@ namespace OpenIP {
     public:
         Fliter(PixelMap *pixelMap);
 
-        void min();
-        void max();
-        void median();
-        void arithmetic_mean();
-        void geometric_mean();
+        PixelMap* min();
+        PixelMap* max();
+        PixelMap* median();
+        PixelMap* arithmetic_mean();
+        PixelMap* geometric_mean();
 
-        void harmonics();
-        void inverse_harmonic();
+        PixelMap* harmonics();
+        PixelMap* inverse_harmonic();
 
         PixelMap *getPixelMap() const;
 

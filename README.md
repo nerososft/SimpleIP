@@ -65,14 +65,14 @@ pixelmap->normalize(width, height);
 
 ```c++
 Fliter* fliter = new Fliter(pixelMap);
-        fliter->median();
+        pixelMap = fliter->median();
 ```
 
 #### 最大值滤波
 
 ```c++
 Fliter* fliter = new Fliter(pixelMap);
-        fliter->max();
+       pixelMap = fliter->max();
 ```
 
 
@@ -81,7 +81,7 @@ Fliter* fliter = new Fliter(pixelMap);
 
 ```c++
 Fliter* fliter = new Fliter(pixelMap);
-        fliter->min();
+        pixelMap = fliter->min();
 ```
 
 
@@ -90,7 +90,7 @@ Fliter* fliter = new Fliter(pixelMap);
 
 ```c++
 Fliter* fliter = new Fliter(pixelMap);
-        fliter->arithmetic_mean();
+        pixelMap = fliter->arithmetic_mean();
 ```
 
 
@@ -99,7 +99,7 @@ Fliter* fliter = new Fliter(pixelMap);
 
 ```c++
 Fliter* fliter = new Fliter(pixelMap);
-        fliter->geometric_mean();
+        pixelMap = fliter->geometric_mean();
 ```
 
 
@@ -108,7 +108,7 @@ Fliter* fliter = new Fliter(pixelMap);
 
 ```c++
 Fliter* fliter = new Fliter(pixelMap);
-        fliter->harmonics();
+        pixelMap = fliter->harmonics();
 ```
 
 
@@ -117,6 +117,6 @@ Fliter* fliter = new Fliter(pixelMap);
 
 ```c++
 Fliter* fliter = new Fliter(pixelMap);
-        fliter->inverse_harmonic();
+        pixelMap = fliter->inverse_harmonic();
 ```
 

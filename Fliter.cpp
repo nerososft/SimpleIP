@@ -12,7 +12,7 @@ namespace OpenIP{
 
     Fliter::Fliter(PixelMap *pixelMap) : pixelMap(pixelMap) {}
 
-    void Fliter::min() {
+    PixelMap* Fliter::min() {
         std::vector<std::vector<Pixel*>> tmp = this->pixelMap->getPixelMap();
 
         for (int i = 0; i < this->pixelMap->getWidth(); i++) {
@@ -46,9 +46,10 @@ namespace OpenIP{
                 }
             }
         }
+        return this->getPixelMap();
     }
 
-    void Fliter::max() {
+    PixelMap* Fliter::max() {
         std::vector<std::vector<Pixel*>> tmp = this->pixelMap->getPixelMap();
 
         for (int i = 0; i < this->pixelMap->getWidth(); i++) {
@@ -82,9 +83,10 @@ namespace OpenIP{
                 }
             }
         }
+        return this->getPixelMap();
     }
 
-    void Fliter::median() {
+    PixelMap* Fliter::median() {
         std::vector<std::vector<Pixel*>> tmp = this->pixelMap->getPixelMap();
 
         for (int i = 0; i < this->pixelMap->getWidth(); i++) {
@@ -119,10 +121,10 @@ namespace OpenIP{
                 }
             }
         }
-
+        return this->getPixelMap();
     }
 
-    void Fliter::arithmetic_mean() {
+    PixelMap* Fliter::arithmetic_mean() {
         std::vector<std::vector<Pixel*>> tmp = this->pixelMap->getPixelMap();
         for (int i = 0; i < this->pixelMap->getWidth(); i++) {
             for (int j = 0; j < this->pixelMap->getHeight(); j++) {
@@ -142,9 +144,10 @@ namespace OpenIP{
                 }
             }
         }
+        return this->getPixelMap();
     }
 
-    void Fliter::geometric_mean() {
+    PixelMap* Fliter::geometric_mean() {
         std::vector<std::vector<Pixel*>> tmp = this->pixelMap->getPixelMap();
         for (int i = 0; i < this->pixelMap->getWidth(); i++) {
             for (int j = 0; j < this->pixelMap->getHeight(); j++) {
@@ -165,9 +168,10 @@ namespace OpenIP{
                 }
             }
         }
+        return this->getPixelMap();
     }
 
-    void Fliter::harmonics() {
+    PixelMap* Fliter::harmonics() {
         std::vector<std::vector<Pixel*>> tmp = this->pixelMap->getPixelMap();
         for (int i = 0; i < this->pixelMap->getWidth(); i++) {
             for (int j = 0; j < this->pixelMap->getHeight(); j++) {
@@ -187,10 +191,11 @@ namespace OpenIP{
                 }
             }
         }
+        return this->getPixelMap();
 
     }
 
-    void Fliter::inverse_harmonic() {
+    PixelMap* Fliter::inverse_harmonic() {
         std::vector<std::vector<Pixel*>> tmp = this->pixelMap->getPixelMap();
         for (int i = 0; i < this->pixelMap->getWidth(); i++) {
             for (int j = 0; j < this->pixelMap->getHeight(); j++) {
@@ -219,6 +224,7 @@ namespace OpenIP{
                 }
             }
         }
+        return this->getPixelMap();
     }
 
     PixelMap *Fliter::getPixelMap() const {

@@ -9,6 +9,9 @@
 namespace OpenIP {
     class Font {
 
+    private:
+
+
     };
 }
 

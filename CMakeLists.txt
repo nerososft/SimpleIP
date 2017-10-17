@@ -14,7 +14,8 @@ set(SOURCE_FILES
         Math.cpp Math.h
         PNGLoader.cpp PNGLoader.h
         Font.cpp Font.h
-        JPEGLoader.cpp JPEGLoader.h Fliter.cpp Fliter.h)
+        JPEGLoader.cpp JPEGLoader.h
+        Fliter.cpp Fliter.h)
 
 
 
