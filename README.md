@@ -1,4 +1,6 @@
-OpenIP![屏幕快照 2017-10-17 下午8.31.29](屏幕快照 2017-10-17 下午8.31.29.png)
+### OpenIP 是一个不想用matlab写图形处理作业的学生写的跨平台图像处理框架。
+
+![屏幕快照 2017-10-17 下午8.31.29](https://github.com/nerososft/SimpleIP/blob/master/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-10-17%20%E4%B8%8B%E5%8D%888.31.29.png?raw=true)
 
 ## 窗口
 
