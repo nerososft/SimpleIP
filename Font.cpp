@@ -10,9 +10,8 @@
 #include <freetype/ftcache.h>
 
 namespace OpenIP{
-
-
-    PixelMap* Font::getCharPixelMap(char c) {
+    Font::Font(char *ttfPath, FONT_MODE font_mode,  std::shared_ptr<ColorRGB> foreColor, std::shared_ptr<ColorRGB> backColor, int width, int height, int x, int y) : ttfPath(ttfPath), font_mode(font_mode), foreColor(foreColor), backColor(backColor), width(width), height(height), x(x),
+                                                                                                                                     y(y) {
         error  =  FT_Init_FreeType( & pFTLib);
         if (error)
         {
@@ -21,17 +20,23 @@ namespace OpenIP{
         }
 
         error  =  FT_New_Face(pFTLib,  this->ttfPath ,  0 ,  & pFTFace);
-        if ( ! error)
+        if (error)
         {
+            printf( " There is some error when Init Library " );
+        }
+    }
+
+    std::shared_ptr<PixelMap> Font::getCharPixelMap(char c) {
 
             FT_Set_Char_Size(pFTFace,  16 << 6 ,  16 << 6 ,  this->width ,  this->height );
             FT_Glyph    glyph;
 
             FT_Load_Glyph(pFTFace, FT_Get_Char_Index(pFTFace,  int(c) ), FT_LOAD_DEFAULT);
             error  =  FT_Get_Glyph(pFTFace -> glyph,  & glyph);
+            std::shared_ptr<PixelMap> fontPixels;
+
             if ( ! error)
             {
-                //  convert glyph to bitmap with 256 gray
                 FT_Glyph_To_Bitmap( & glyph, ft_render_mode_normal,  0 ,  1 );
                 FT_BitmapGlyph    bitmap_glyph  =  (FT_BitmapGlyph)glyph;
                 FT_Bitmap &     bitmap  =  bitmap_glyph -> bitmap;
@@ -41,26 +46,25 @@ namespace OpenIP{
 
                 charLenV.push_back(bitMapWidth);
 
-                fontPixels = new PixelMap(x,y,bitmap.rows,bitmap.width,backColor);
-                std::vector<std::vector<Pixel*>> font;
+                fontPixels = std::make_shared<PixelMap>(x,y,bitmap.rows,bitmap.width,backColor);
+
+                std::vector<std::vector<std::shared_ptr<Pixel>>> font;
 
                 for ( int  i = 0 ; i < bitmap.rows;  ++ i)
                 {
-                    std::vector<Pixel*> fo;
+                    std::vector<std::shared_ptr<Pixel>> fo;
                     for ( int  j = 0 ; j < bitmap.width;  ++ j)
                     {
-                        //  if it has gray>0 we set show it as 1, o otherwise
                         if(bitmap.buffer[i * bitmap.width + j]){
-                            Pixel* pixel = new Pixel(x+j,y+i,foreColor);
+                            std::shared_ptr<Pixel> pixel = std::make_shared<Pixel>(x + j, y + i, foreColor);
                             fo.push_back(pixel);
                         }else{
-                            Pixel* pixel = new Pixel(x+j,y+i,backColor);
+                            std::shared_ptr<Pixel> pixel = std::make_shared<Pixel>(x + j, y + i, backColor);
                             if(this->font_mode==FONT_MODE::TRANSPARENT) {
                                 pixel->setIsTransperent(true);
                             }
                             fo.push_back(pixel);
                         }
-                        //printf( " %d " , bitmap.buffer[i * bitmap.width + j] ? 1 : 0 );
                     }
                     font.push_back(fo);
                 }
@@ -71,15 +75,6 @@ namespace OpenIP{
                 FT_Done_Glyph(glyph);
                 glyph  =  NULL;
             }
-
-
-            FT_Done_Face(pFTFace);
-            pFTFace  =  NULL;
-        }
-
-
-        FT_Done_FreeType(pFTLib);
-        pFTLib  =  NULL;
 
         return fontPixels;
     }
@@ -98,7 +93,7 @@ namespace OpenIP{
         int charNum = strlen(ch);
         charLen = charNum;
         for(int i = 0;i<charNum;i++){
-            PixelMap* pp = getCharPixelMap(ch[i]);
+            std::shared_ptr<PixelMap> pp = getCharPixelMap(ch[i]);
             if(i!=0) {
                 int w = 0;
                 for(int j = 0;j<i;j++){
@@ -108,6 +103,7 @@ namespace OpenIP{
             }
             stringPixels.push_back(pp);
         }
+
     }
 
     void Font::render(){
@@ -116,9 +112,7 @@ namespace OpenIP{
         }
     }
 
-    Font::Font(char *ttfPath, FONT_MODE font_mode,  ColorRGB *foreColor, ColorRGB *backColor, int width, int height, int x, int y) : ttfPath(ttfPath), font_mode(font_mode), fontPixels(fontPixels), foreColor(foreColor), backColor(backColor), width(width), height(height), x(x),
-                                                                                                                                                          y(y) {
-    }
+
 
     int Font::getSpacing() const {
         return spacing;
@@ -129,6 +123,9 @@ namespace OpenIP{
     }
 
     Font::~Font() {
-
+        FT_Done_Face(pFTFace);
+        pFTFace  =  NULL;
+        FT_Done_FreeType(pFTLib);
+        pFTLib = NULL;
     }
 }

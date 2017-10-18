@@ -2,6 +2,7 @@
 // Created by neroyang on 2017/10/14.
 //
 
+#include <iostream>
 #include "PixelMap.h"
 
 namespace OpenIP {
@@ -23,17 +24,17 @@ namespace OpenIP {
         }
     }
 
-    PixelMap::PixelMap(int x, int y, int width, int height, ColorRGB *backgroundColor) : x(x), y(y), height(height), width(width), backgroundColor(backgroundColor) {
+    PixelMap::PixelMap(int x, int y, int width, int height, std::shared_ptr<ColorRGB> backgroundColor) : x(x), y(y), height(height), width(width), backgroundColor(backgroundColor) {
         for (int i = 0; i < width; i++) {
-            std::vector<Pixel *> pp;
+            std::vector<std::shared_ptr<Pixel>> pp;
             for (int j = 0; j < height; j++) {
-                pp.push_back(new Pixel(x + i, y + j, backgroundColor));
+                pp.push_back(std::make_shared<Pixel>(x + i, y + j, backgroundColor));
             }
             pixelMap.push_back(pp);
         }
     }
 
-    void PixelMap::changeColor(int i,int j,ColorRGB* color){
+    void PixelMap::changeColor(int i,int j,std::shared_ptr<ColorRGB> color){
         this->pixelMap[i][j]->setColor(color);
     }
 
@@ -74,11 +75,11 @@ namespace OpenIP {
         PixelMap::width = width;
     }
 
-    ColorRGB *PixelMap::getBackgroundColor() const {
+    std::shared_ptr<ColorRGB> PixelMap::getBackgroundColor() const {
         return backgroundColor;
     }
 
-    void PixelMap::setBackgroundColor(ColorRGB *backgroundColor) {
+    void PixelMap::setBackgroundColor(std::shared_ptr<ColorRGB> backgroundColor) {
         PixelMap::backgroundColor = backgroundColor;
     }
 
@@ -92,6 +93,9 @@ namespace OpenIP {
                 pixelMap[width-i-1][j]->setY(temp);
             }
         }
+    }
+
+    PixelMap::~PixelMap() {
     }
 
 }

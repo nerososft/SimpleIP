@@ -14,22 +14,22 @@ namespace OpenIP {
     class Fliter {
 
     private:
-        PixelMap* pixelMap;
+        std::shared_ptr<PixelMap> pixelMap;
     public:
-        Fliter(PixelMap *pixelMap);
+        Fliter(std::shared_ptr<PixelMap> pixelMap);
 
-        PixelMap* min();
-        PixelMap* max();
-        PixelMap* median();
-        PixelMap* arithmetic_mean();
-        PixelMap* geometric_mean();
+        std::shared_ptr<PixelMap> min();
+        std::shared_ptr<PixelMap> max();
+        std::shared_ptr<PixelMap> median();
+        std::shared_ptr<PixelMap> arithmetic_mean();
+        std::shared_ptr<PixelMap> geometric_mean();
 
-        PixelMap* harmonics();
-        PixelMap* inverse_harmonic();
+        std::shared_ptr<PixelMap> harmonics();
+        std::shared_ptr<PixelMap> inverse_harmonic();
 
-        PixelMap *getPixelMap() const;
+        std::shared_ptr<PixelMap> getPixelMap() const;
 
-        void setPixelMap(PixelMap *pixelMap);
+        void setPixelMap(std::shared_ptr<PixelMap> pixelMap);
 
         virtual ~Fliter();
 

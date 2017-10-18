@@ -5,7 +5,7 @@
 #include "Font.h"
 
 int main(int argc, const char * argv[]) {
-    OpenIP::Board* board = new OpenIP::Board("OpenIP",640,480,new OpenIP::ColorRGB(255,255,255));
+    OpenIP::Board* board = new OpenIP::Board("OpenIP",640,480,std::make_shared<OpenIP::ColorRGB>(255,255,255));
     board->setEventHandling();
     board->run();
 

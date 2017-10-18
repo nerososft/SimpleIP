@@ -23,11 +23,10 @@ namespace OpenIP {
 
         FONT_MODE  font_mode;
 
-        PixelMap* fontPixels;
-        std::vector<PixelMap*> stringPixels;
-        ColorRGB* foreColor;
+        std::vector<std::shared_ptr<PixelMap>> stringPixels;
+        std::shared_ptr<ColorRGB> foreColor;
 
-        ColorRGB* backColor;
+        std::shared_ptr<ColorRGB> backColor;
 
         int width;
         int height;
@@ -47,16 +46,20 @@ namespace OpenIP {
         FT_Face        pFTFace         =  NULL;
         FT_Error    error         =   0 ;
 
-        PixelMap* getCharPixelMap(char c);
+        std::shared_ptr<PixelMap> getCharPixelMap(char c);
 
     public:
+
+
+
+
         void draw(const char* ch);
 
         void render();
 
         void normalize(int width, int height);
 
-        Font(char *ttfPath, FONT_MODE font_mode, ColorRGB *foreColor, ColorRGB *backColor, int width, int height, int x, int y);
+        Font(char *ttfPath, FONT_MODE font_mode, std::shared_ptr<ColorRGB> foreColor, std::shared_ptr<ColorRGB> backColor, int width, int height, int x, int y);
 
 
         int getSpacing() const;

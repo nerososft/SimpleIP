@@ -17,24 +17,24 @@ namespace OpenIP {
         int height;
         int width;
 
-        ColorRGB *backgroundColor;
-        std::vector<std::vector<Pixel *>> pixelMap;
+        std::shared_ptr<ColorRGB> backgroundColor;
+        std::vector<std::vector<std::shared_ptr<Pixel>>> pixelMap;
 
     public:
 
-        void setPixelMap(std::vector<std::vector<Pixel *>> pixelmap) {
+        void setPixelMap(std::vector<std::vector<std::shared_ptr<Pixel>>> pixelmap) {
             this->pixelMap = pixelmap;
         };
 
-        void changeColor(int i,int j,ColorRGB* color);
+        void changeColor(int i,int j,std::shared_ptr<ColorRGB> color);
 
         void normalize(int width, int height);
 
         void flipUpDown();
 
-        std::vector<std::vector<Pixel *>> getPixelMap() { return this->pixelMap; };
+        std::vector<std::vector<std::shared_ptr<Pixel>>> getPixelMap() { return this->pixelMap; };
 
-        PixelMap(int x, int y, int width, int height, ColorRGB *backgroundColor);
+        PixelMap(int x, int y, int width, int height, std::shared_ptr<ColorRGB> backgroundColor);
 
         void render();
 
@@ -54,9 +54,11 @@ namespace OpenIP {
 
         void setWidth(int width);
 
-        ColorRGB *getBackgroundColor() const;
+        std::shared_ptr<ColorRGB> getBackgroundColor() const;
 
-        void setBackgroundColor(ColorRGB *backgroundColor);
+        void setBackgroundColor(std::shared_ptr<ColorRGB> backgroundColor);
+
+        virtual ~PixelMap();
     };
 }
 

@@ -5,9 +5,9 @@
 #include "Pixel.h"
 
 namespace OpenIP {
-    Pixel::Pixel(int x, int y, ColorRGB *color) : x(x), y(y), color(color) {
+    Pixel::Pixel(int x, int y, std::shared_ptr<ColorRGB> color) : x(x), y(y), color(color) {
         isTransperent = false;
-        this->rectangle = new Rectangle(0, 0, 0, 0, color->R(), color->G(), color->B());
+        this->rectangle = std::make_shared<Rectangle>(0, 0, 0, 0, color->R(), color->G(), color->B());
     }
 
     void Pixel::normalize(int width, int height) {
@@ -43,6 +43,10 @@ namespace OpenIP {
 
     void Pixel::setIsTransperent(bool isTransperent) {
         Pixel::isTransperent = isTransperent;
+    }
+
+    Pixel::~Pixel() {
+
     }
 
 }

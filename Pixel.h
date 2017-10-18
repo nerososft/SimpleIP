@@ -15,18 +15,18 @@ namespace OpenIP {
     private:
         int x;
         int y;
-        ColorRGB *color;
-        Rectangle *rectangle;
+        std::shared_ptr<ColorRGB> color;
+        std::shared_ptr<Rectangle> rectangle;
         bool isTransperent = false;
 
     public:
-        Pixel(int x, int y, ColorRGB *color);
+        Pixel(int x, int y, std::shared_ptr<ColorRGB> color);
 
 
-        ColorRGB *getColor() { return this->color; };
+        std::shared_ptr<ColorRGB> getColor() { return this->color; };
 
 
-        void setColor(ColorRGB *color) { this->rectangle->setColor(color->R(), color->G(), color->B()); };
+        void setColor(std::shared_ptr<ColorRGB> color) { this->rectangle->setColor(color->R(), color->G(), color->B()); };
 
 
         void normalize(int width, int height);
@@ -44,6 +44,8 @@ namespace OpenIP {
         bool isIsTransperent() const;
 
         void setIsTransperent(bool isTransperent);
+
+        virtual ~Pixel();
     };
 }
 

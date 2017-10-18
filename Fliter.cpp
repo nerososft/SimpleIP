@@ -10,10 +10,10 @@
 namespace OpenIP{
 
 
-    Fliter::Fliter(PixelMap *pixelMap) : pixelMap(pixelMap) {}
+    Fliter::Fliter(std::shared_ptr<PixelMap> pixelMap) : pixelMap(pixelMap) {}
 
-    PixelMap* Fliter::min() {
-        std::vector<std::vector<Pixel*>> tmp = this->pixelMap->getPixelMap();
+    std::shared_ptr<PixelMap> Fliter::min() {
+        std::vector<std::vector<std::shared_ptr<Pixel>>> tmp = this->pixelMap->getPixelMap();
 
         for (int i = 0; i < this->pixelMap->getWidth(); i++) {
             for (int j = 0; j < this->pixelMap->getHeight(); j++) {
@@ -29,7 +29,7 @@ namespace OpenIP{
                         }
                     }
 
-                    Math *math = new Math();
+                    std::shared_ptr<Math> math = std::make_shared<Math>();
                     int len = sizeof(gray) / sizeof(int);
                     math->quickSort(gray, 0, len - 1);
 
@@ -49,8 +49,8 @@ namespace OpenIP{
         return this->getPixelMap();
     }
 
-    PixelMap* Fliter::max() {
-        std::vector<std::vector<Pixel*>> tmp = this->pixelMap->getPixelMap();
+    std::shared_ptr<PixelMap> Fliter::max() {
+        std::vector<std::vector<std::shared_ptr<Pixel>>> tmp = this->pixelMap->getPixelMap();
 
         for (int i = 0; i < this->pixelMap->getWidth(); i++) {
             for (int j = 0; j < this->pixelMap->getHeight(); j++) {
@@ -66,7 +66,7 @@ namespace OpenIP{
                         }
                     }
 
-                    Math *math = new Math();
+                    std::shared_ptr<Math> math = std::make_shared<Math>();
                     int len = sizeof(gray) / sizeof(int);
                     math->quickSort(gray, 0, len - 1);
 
@@ -86,8 +86,8 @@ namespace OpenIP{
         return this->getPixelMap();
     }
 
-    PixelMap* Fliter::median() {
-        std::vector<std::vector<Pixel*>> tmp = this->pixelMap->getPixelMap();
+    std::shared_ptr<PixelMap> Fliter::median() {
+        std::vector<std::vector<std::shared_ptr<Pixel>>> tmp = this->pixelMap->getPixelMap();
 
         for (int i = 0; i < this->pixelMap->getWidth(); i++) {
             for (int j = 0; j < this->pixelMap->getHeight(); j++) {
@@ -103,7 +103,7 @@ namespace OpenIP{
                         }
                     }
 
-                    Math *math = new Math();
+                    std::shared_ptr<Math> math = std::make_shared<Math>();
                     int len = sizeof(gray) / sizeof(int);
                     math->quickSort(gray, 0, len - 1);
                     float current_gray = gray[4]; //    灰度值中位数
@@ -124,8 +124,8 @@ namespace OpenIP{
         return this->getPixelMap();
     }
 
-    PixelMap* Fliter::arithmetic_mean() {
-        std::vector<std::vector<Pixel*>> tmp = this->pixelMap->getPixelMap();
+    std::shared_ptr<PixelMap> Fliter::arithmetic_mean() {
+        std::vector<std::vector<std::shared_ptr<Pixel>>> tmp = this->pixelMap->getPixelMap();
         for (int i = 0; i < this->pixelMap->getWidth(); i++) {
             for (int j = 0; j < this->pixelMap->getHeight(); j++) {
                 if (i > 1 && i < this->pixelMap->getWidth() - 1 && j > 1 && j < this->pixelMap->getHeight() - 1) {
@@ -140,15 +140,15 @@ namespace OpenIP{
                     R = (R / 9.0f) * 255.0f;
                     G = (G / 9.0f) * 255.0f;
                     B = (B / 9.0f) * 255.0f;
-                    this->pixelMap->changeColor(i,j,new ColorRGB(R, G, B));
+                    this->pixelMap->changeColor(i,j,std::make_shared<ColorRGB>(R, G, B));
                 }
             }
         }
         return this->getPixelMap();
     }
 
-    PixelMap* Fliter::geometric_mean() {
-        std::vector<std::vector<Pixel*>> tmp = this->pixelMap->getPixelMap();
+    std::shared_ptr<PixelMap> Fliter::geometric_mean() {
+        std::vector<std::vector<std::shared_ptr<Pixel>>> tmp = this->pixelMap->getPixelMap();
         for (int i = 0; i < this->pixelMap->getWidth(); i++) {
             for (int j = 0; j < this->pixelMap->getHeight(); j++) {
                 if (i > 1 && i < this->pixelMap->getWidth() - 1 && j > 1 && j < this->pixelMap->getHeight() - 1) {
@@ -164,15 +164,15 @@ namespace OpenIP{
                     R = pow(R, 1.0f / 9.0f);
                     G = pow(G, 1.0f / 9.0f);
                     B = pow(B, 1.0f / 9.0f);
-                    this->pixelMap->changeColor(i,j,new ColorRGB(R, G, B));
+                    this->pixelMap->changeColor(i,j,std::make_shared<ColorRGB>(R, G, B));
                 }
             }
         }
         return this->getPixelMap();
     }
 
-    PixelMap* Fliter::harmonics() {
-        std::vector<std::vector<Pixel*>> tmp = this->pixelMap->getPixelMap();
+    std::shared_ptr<PixelMap> Fliter::harmonics() {
+        std::vector<std::vector<std::shared_ptr<Pixel>>> tmp = this->pixelMap->getPixelMap();
         for (int i = 0; i < this->pixelMap->getWidth(); i++) {
             for (int j = 0; j < this->pixelMap->getHeight(); j++) {
                 if (i > 1 && i < this->pixelMap->getWidth() - 1 && j > 1 && j < this->pixelMap->getHeight() - 1) {
@@ -187,7 +187,7 @@ namespace OpenIP{
                     R = (9.0f / R) * 255.0f;
                     G = (9.0f / G) * 255.0f;
                     B = (9.0f / B) * 255.0f;
-                    this->pixelMap->changeColor(i,j,new ColorRGB(R, G, B));
+                    this->pixelMap->changeColor(i,j,std::make_shared<ColorRGB>(R, G, B));
                 }
             }
         }
@@ -195,8 +195,8 @@ namespace OpenIP{
 
     }
 
-    PixelMap* Fliter::inverse_harmonic() {
-        std::vector<std::vector<Pixel*>> tmp = this->pixelMap->getPixelMap();
+    std::shared_ptr<PixelMap> Fliter::inverse_harmonic() {
+        std::vector<std::vector<std::shared_ptr<Pixel>>> tmp = this->pixelMap->getPixelMap();
         for (int i = 0; i < this->pixelMap->getWidth(); i++) {
             for (int j = 0; j < this->pixelMap->getHeight(); j++) {
                 if (i > 1 && i < this->pixelMap->getWidth() - 1 && j > 1 && j < this->pixelMap->getHeight() - 1) {
@@ -219,7 +219,7 @@ namespace OpenIP{
                     R = (R1 / R) * 255.0f;
                     G = (G1 / G) * 255.0f;
                     B = (B1 / B) * 255.0f;
-                    this->pixelMap->changeColor(i,j,new ColorRGB(R, G, B));
+                    this->pixelMap->changeColor(i,j,std::make_shared<ColorRGB>(R, G, B));
 
                 }
             }
@@ -227,17 +227,16 @@ namespace OpenIP{
         return this->getPixelMap();
     }
 
-    PixelMap *Fliter::getPixelMap() const {
+    std::shared_ptr<PixelMap> Fliter::getPixelMap() const {
         return pixelMap;
     }
 
-    void Fliter::setPixelMap(PixelMap *pixelMap) {
+    void Fliter::setPixelMap(std::shared_ptr<PixelMap> pixelMap) {
         Fliter::pixelMap = pixelMap;
     }
 
     Fliter::~Fliter() {
-        pixelMap->getPixelMap().clear();
-        pixelMap = nullptr;
+
     }
 }
 
