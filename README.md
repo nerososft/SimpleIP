@@ -131,3 +131,26 @@ Fliter* fliter = new Fliter(pixelMap);
         pixelMap = fliter->inverse_harmonic();
 ```
 
+## 字体
+
+### 1. 字体渲染
+
+#### 初始化
+
+```c++
+Font* font = new Font("default.otf", FONT_MODE::TRANSPARENT,new ColorRGB(255,255,255), new ColorRGB(0,255,0), 500, 500,100, 200);
+```
+
+#### 绘制
+
+```c++
+ font->draw("this is my font");
+        font->normalize(width,height);
+```
+
+#### 渲染
+
+```
+font->render();
+```
+
