@@ -234,6 +234,11 @@ namespace OpenIP{
     void Fliter::setPixelMap(PixelMap *pixelMap) {
         Fliter::pixelMap = pixelMap;
     }
+
+    Fliter::~Fliter() {
+        pixelMap->getPixelMap().clear();
+        pixelMap = nullptr;
+    }
 }
 
 

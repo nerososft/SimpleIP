@@ -18,6 +18,7 @@
 #include "PNGLoader.h"
 #include "Font.h"
 #include "FpsLimter.h"
+#include "System.h"
 #include <vector>
 
 
@@ -36,14 +37,20 @@ namespace OpenIP {
 
         float _fps;
 
-        PNGLoader* pngLoader = new PNGLoader();
-        std::vector<std::vector<ColorRGB *>> colorVector = pngLoader->loadPNG("yz.png");
-
         STATE state;
         FpsLimter* _fpsLimter = new FpsLimter();
+        Font* fps = new Font("default.otf", FONT_MODE::TRANSPARENT,new ColorRGB(0,255,255), new ColorRGB(0,255,0), 60, 60,10, 460);
+        Font* fpsNum = new Font("default.otf", FONT_MODE::TRANSPARENT,new ColorRGB(0,255,255), new ColorRGB(0,255,0), 60, 60,60, 460);
 
-        Font* fps = new Font("default.otf", FONT_MODE::TRANSPARENT,new ColorRGB(0,0,255), new ColorRGB(0,255,0), 100, 100,10, 450);
-        Font* fpsNum = new Font("default.otf", FONT_MODE::TRANSPARENT,new ColorRGB(0,0,255), new ColorRGB(0,255,0), 100, 100,60, 450);
+        System* system = new System();
+        Font* CPU = new Font("default.otf", FONT_MODE::TRANSPARENT,new ColorRGB(0,255,255), new ColorRGB(0,255,0), 60, 60,10, 445);
+        Font* CPUNUM = new Font("default.otf", FONT_MODE::TRANSPARENT,new ColorRGB(0,255,255), new ColorRGB(0,255,0), 60, 60,60, 445);
+
+        Font* MEM = new Font("default.otf", FONT_MODE::TRANSPARENT,new ColorRGB(0,255,255), new ColorRGB(0,255,0), 60, 60,10, 430);
+        Font* MEMNUM = new Font("default.otf", FONT_MODE::TRANSPARENT,new ColorRGB(0,255,255), new ColorRGB(0,255,0), 60, 60,60, 430);
+
+        PNGLoader* pngLoader = new PNGLoader();
+        std::vector<std::vector<ColorRGB *>> colorVector = pngLoader->loadPNG("yz.png");
 
         std::vector<std::vector<Pixel *>> pixels;
         std::vector<std::vector<Pixel *>> pixels_zhong;
@@ -77,6 +84,7 @@ namespace OpenIP {
 
 
         void renderFPS();
+        void renderSysInfo();
 
         virtual void keycallback(
                 GLFWwindow *window,

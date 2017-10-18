@@ -31,6 +31,8 @@ namespace OpenIP {
 
         void setPixelMap(PixelMap *pixelMap);
 
+        virtual ~Fliter();
+
     };
 }
 

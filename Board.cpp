@@ -80,16 +80,22 @@ namespace OpenIP {
         fps->normalize(width,height);
 
         fpsNum->setSpacing(2);
-        //fpsNum->draw("50.0");
-
-
 
         Open->draw("Open");
         Open->normalize(width,height);
         IP->draw("IP");
         IP->normalize(width,height);
 
+        CPU->setSpacing(2);
+        CPU->draw("CPU:");
+        CPU->normalize(width,height);
+        CPUNUM->setSpacing(2);
 
+
+        MEM->setSpacing(2);
+        MEM->draw("MEM:");
+        MEM->normalize(width,height);
+        MEMNUM->setSpacing(2);
 
     }
 
@@ -128,7 +134,6 @@ namespace OpenIP {
 
 
     void Board::update() {
-
             yuantu->render();
             zhongzhi->render();
             zuidazhi->render();
@@ -144,6 +149,7 @@ namespace OpenIP {
             fps->render();
 
             renderFPS();
+        renderSysInfo();
 
     }
 
@@ -157,6 +163,18 @@ namespace OpenIP {
         fpsNum->draw(ff);
         fpsNum->normalize(width,height);
         fpsNum->render();
+    }
+    void Board::renderSysInfo(){
+        CPU->render();
+
+        CPUNUM->draw("0%");
+        CPUNUM->normalize(width,height);
+        CPUNUM->render();
+
+        MEM->render();
+        MEMNUM->draw("0M");
+        MEMNUM->normalize(width,height);
+        MEMNUM->render();
     }
     void Board::Render() {
         if(state==STATE::RENDERING) {
