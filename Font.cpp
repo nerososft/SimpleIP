@@ -11,8 +11,6 @@
 
 namespace OpenIP{
 
-    void Font::loadFont(){
-    }
 
     PixelMap* Font::getCharPixelMap(char c) {
         error  =  FT_Init_FreeType( & pFTLib);
@@ -86,20 +84,21 @@ namespace OpenIP{
         return fontPixels;
     }
 
-    void Font::draw(char c){
-        this->getCharPixelMap(c);
-    }
     void Font::normalize(int width, int height){
         for(int i = 0;i<charLen;i++) {
             this->stringPixels[i]->normalize(width, height);
         }
     }
 
-    void Font::draw(char* ch){
+    void Font::draw(const char* ch){
+        stringPixels.clear();
+        charLenV.clear();
+        charLen = 0;
+
         int charNum = strlen(ch);
         charLen = charNum;
         for(int i = 0;i<charNum;i++){
-            PixelMap* pp = getCharPixelMap(ch[i]);//new PixelMap(x,y,bitmapHeight,bitMapWidth,backColor);
+            PixelMap* pp = getCharPixelMap(ch[i]);
             if(i!=0) {
                 int w = 0;
                 for(int j = 0;j<i;j++){
@@ -118,7 +117,8 @@ namespace OpenIP{
     }
 
     Font::Font(char *ttfPath, FONT_MODE font_mode,  ColorRGB *foreColor, ColorRGB *backColor, int width, int height, int x, int y) : ttfPath(ttfPath), font_mode(font_mode), fontPixels(fontPixels), foreColor(foreColor), backColor(backColor), width(width), height(height), x(x),
-                                                                                                                                                          y(y) {}
+                                                                                                                                                          y(y) {
+    }
 
     int Font::getSpacing() const {
         return spacing;
@@ -126,5 +126,9 @@ namespace OpenIP{
 
     void Font::setSpacing(int spacing) {
         Font::spacing = spacing;
+    }
+
+    Font::~Font() {
+
     }
 }

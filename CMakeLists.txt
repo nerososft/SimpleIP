@@ -15,7 +15,8 @@ set(SOURCE_FILES
         PNGLoader.cpp PNGLoader.h
         Font.cpp Font.h
         JPEGLoader.cpp JPEGLoader.h
-        Fliter.cpp Fliter.h)
+        Fliter.cpp Fliter.h
+        FpsLimter.cpp FpsLimter.h)
 
 
 

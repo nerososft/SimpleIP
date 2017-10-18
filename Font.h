@@ -50,11 +50,7 @@ namespace OpenIP {
         PixelMap* getCharPixelMap(char c);
 
     public:
-        void loadFont();
-
-        void draw(char c);
-
-        void draw(char* ch);
+        void draw(const char* ch);
 
         void render();
 
@@ -66,6 +62,9 @@ namespace OpenIP {
         int getSpacing() const;
 
         void setSpacing(int spacing);
+
+
+        virtual ~Font();
     };
 }
 

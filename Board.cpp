@@ -12,11 +12,18 @@
 #include "Rectangle.hpp"
 #include <algorithm>
 #include <cmath>
+#include <sstream>
 #include "math.h"
 #include "Fliter.h"
+#include "FpsLimter.h"
+
 
 namespace OpenIP {
     Board::Board(char *title, int width, int height, ColorRGB *backGround) : title(title), width(width), height(height), backGround(backGround) {
+        _fps = 0.0f;
+        state = STATE::RENDERING;
+        _fpsLimter->init(60.0f);
+
         yuantu = new PixelMap(0, 0, this->width / 4, this->height / 2, new ColorRGB(255, 255, 255));
         pngLoader->colorVectorToPixelMap(colorVector,yuantu);
         yuantu->normalize(width, height);
@@ -68,10 +75,22 @@ namespace OpenIP {
         nixie->normalize(width, height);
 
 
+        fps->setSpacing(2);
+        fps->draw("FPS:");
+        fps->normalize(width,height);
+
+        fpsNum->setSpacing(2);
+        //fpsNum->draw("50.0");
+
+
+
         Open->draw("Open");
         Open->normalize(width,height);
         IP->draw("IP");
         IP->normalize(width,height);
+
+
+
     }
 
     void Board::keycallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
@@ -109,25 +128,42 @@ namespace OpenIP {
 
 
     void Board::update() {
-        yuantu->render();
-        zhongzhi->render();
-        zuidazhi->render();
-        zuixiaozhi->render();
 
-        suanshu->render();
-        jihe->render();
-        xie->render();
-        nixie->render();
+            yuantu->render();
+            zhongzhi->render();
+            zuidazhi->render();
+            zuixiaozhi->render();
 
-        Open->render();
-        IP->render();
+            suanshu->render();
+            jihe->render();
+            xie->render();
+            nixie->render();
+
+            Open->render();
+            IP->render();
+            fps->render();
+
+            renderFPS();
 
     }
 
+
+    void Board::renderFPS(){
+        std::ostringstream buffer;
+        buffer << _fps;
+        std::string str = buffer.str();
+        const char* ff= str.c_str();
+
+        fpsNum->draw(ff);
+        fpsNum->normalize(width,height);
+        fpsNum->render();
+    }
     void Board::Render() {
-
-
-        update();
+        if(state==STATE::RENDERING) {
+            _fpsLimter->begin();
+            update();
+            _fps = _fpsLimter->end();
+        }
     }
 
     int Board::run() {
