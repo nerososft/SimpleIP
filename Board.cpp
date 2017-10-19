@@ -23,6 +23,7 @@ namespace OpenIP {
         _fps = 0.0f;
         state = STATE::RENDERING;
         _fpsLimter->init(60.0f);
+        pid = system->get_pid("gp_hw_02","neroyang");
 
         yuantu = std::make_shared<PixelMap>(0, 0, this->width / 4, this->height / 2, std::make_shared<ColorRGB>(255, 255, 255));
         pngLoader->colorVectorToPixelMap(colorVector, yuantu);
@@ -163,12 +164,12 @@ namespace OpenIP {
 
     void Board::renderSysInfo() {
         CPU->render();
-        CPUNUM->draw("0%");
+        CPUNUM->draw(system->get_proc_cpu(pid));
         CPUNUM->normalize(width,height);
         CPUNUM->render();
 
         MEM->render();
-        MEMNUM->draw("0M");
+        MEMNUM->draw(system->get_proc_mem(pid));
         MEMNUM->normalize(width, height);
         MEMNUM->render();
     }

@@ -37,6 +37,8 @@ namespace OpenIP {
 
         float _fps;
 
+        int pid;
+
         STATE state;
         std::shared_ptr<FpsLimter> _fpsLimter = std::make_shared<FpsLimter>();
         Font* fps = new Font("default.otf", FONT_MODE::TRANSPARENT,std::make_shared<ColorRGB>(0,255,255), std::make_shared<ColorRGB>(0,255,0), 60, 60,10, 460);
@@ -65,6 +67,9 @@ namespace OpenIP {
 
         Font*  Open = new Font("default.otf", FONT_MODE::TRANSPARENT,std::make_shared<ColorRGB>(255,255,255), std::make_shared<ColorRGB>(0,255,0), 500, 500,100, 200);
         Font*  IP = new Font("ip2.TTF", FONT_MODE::TRANSPARENT,std::make_shared<ColorRGB>(0,255,0), std::make_shared<ColorRGB>(0,255,0), 500, 500,400, 200);
+
+
+
     public:
         Board(char *title, int width, int height, std::shared_ptr<ColorRGB> backGround);
 

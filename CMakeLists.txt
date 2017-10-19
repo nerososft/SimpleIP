@@ -16,7 +16,10 @@ set(SOURCE_FILES
         Font.cpp Font.h
         JPEGLoader.cpp JPEGLoader.h
         Fliter.cpp Fliter.h
-        FpsLimter.cpp FpsLimter.h System.cpp System.h)
+        FpsLimter.cpp FpsLimter.h
+        System.cpp System.h
+        rl/ValueIteration.cpp rl/ValueIteration.h
+        rl/PolicyIteration.cpp rl/PolicyIteration.h)
 
 
 

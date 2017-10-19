@@ -30,12 +30,17 @@ namespace OpenIP {
         unsigned long cstime;
     }Proc_Cpu_Occupy_t;
 
+    enum SYSARCH{
+        WIN,WIN32,LINUX,UNIX,OTHER
+    };
 
     class System {
     private:
+        SYSARCH  sysarch;
         float cpu;
         int processor_num;
         float mem;
+
     public:
         System();
 
@@ -52,10 +57,10 @@ namespace OpenIP {
 
 
         //获取CPU占用率
-        float get_proc_cpu(unsigned int pid);
+        const char* get_proc_cpu(unsigned int pid);
 
         //获取进程占用内存
-        unsigned int get_proc_mem(unsigned int pid);
+        const char* get_proc_mem(unsigned int pid);
 
 
         //获取进程占用虚拟内存
@@ -64,6 +69,8 @@ namespace OpenIP {
 
         //进程本身
         int get_pid(const char* process_name, const char* user = nullptr);
+
+        const char* ErrorMsg(SYSARCH arch);
     };
 }
 
