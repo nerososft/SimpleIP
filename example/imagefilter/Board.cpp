@@ -14,9 +14,8 @@
 #include <cmath>
 #include <sstream>
 #include "math.h"
-#include "filter/Fliter.h"
+#include "Fliter.h"
 #include "FpsLimter.h"
-#include "segmentation/Segmentation.h"
 
 
 namespace OpenIP {
@@ -30,17 +29,67 @@ namespace OpenIP {
         _fpsLimter->init(60.0f);
         pid = system->get_pid("gp_hw_02","neroyang");
 
-        init();
+        yuantu = std::make_shared<PixelMap>(0, 0, this->width / 4, this->height / 2, std::make_shared<ColorRGB>(255, 255, 255));
+        pngLoader->colorVectorToPixelMap(colorVector, yuantu);
+        yuantu->normalize(width, height);
 
-    }
 
-    void Board::init(){
+        zhongzhi =std::make_shared<PixelMap>((this->width / 4), 0, this->width / 4, this->height / 2, std::make_shared<ColorRGB>(255, 0, 255));
+        pngLoader->colorVectorToPixelMap(colorVector, zhongzhi);
+        std::shared_ptr<Fliter> fliter = std::make_shared<Fliter>(zhongzhi);
+        zhongzhi = fliter->median();
+        zhongzhi->normalize(width, height);
+
+
+        zuidazhi =std::make_shared<PixelMap>((this->width / 4) * 2, 0, this->width / 4, this->height / 2, std::make_shared<ColorRGB>(255, 255, 255));
+        pngLoader->colorVectorToPixelMap(colorVector, zuidazhi);
+        std::shared_ptr<Fliter> fliterzuida = std::make_shared<Fliter>(zuidazhi);
+        zuidazhi = fliterzuida->max();
+        zuidazhi->normalize(width, height);
+
+        zuixiaozhi = std::make_shared<PixelMap>((this->width / 4) * 3, 0, this->width / 4, this->height / 2, std::make_shared<ColorRGB>(255, 255, 255));
+        pngLoader->colorVectorToPixelMap(colorVector, zuixiaozhi);
+        std::shared_ptr<Fliter> fliterzuixiao = std::make_shared<Fliter>(zuixiaozhi);
+        zuixiaozhi = fliterzuixiao->min();
+        zuixiaozhi->normalize(width, height);
+
+
+        suanshu = std::make_shared<PixelMap>(0, this->height / 2, this->width / 4, this->height / 2, std::make_shared<ColorRGB>(255, 255, 255));
+        pngLoader->colorVectorToPixelMap(colorVector, suanshu);
+        std::shared_ptr<Fliter> flitersuanshu = std::make_shared<Fliter>(suanshu);
+        suanshu = flitersuanshu->arithmetic_mean();
+        suanshu->normalize(width, height);
+
+
+        jihe = std::make_shared<PixelMap>((this->width / 4), this->height / 2, this->width / 4, this->height / 2, std::make_shared<ColorRGB>(255, 255, 255));
+        pngLoader->colorVectorToPixelMap(colorVector, jihe);
+        std::shared_ptr<Fliter> fliterjihe = std::make_shared<Fliter>(jihe);
+        jihe = fliterjihe->geometric_mean();
+        jihe->normalize(width, height);
+
+        xie = std::make_shared<PixelMap>((this->width / 4) * 2, this->height / 2, this->width / 4, this->height / 2, std::make_shared<ColorRGB>(255, 255, 255));
+        pngLoader->colorVectorToPixelMap(colorVector, xie);
+        std::shared_ptr<Fliter> fliterxie = std::make_shared<Fliter>(xie);
+        xie = fliterxie->harmonics();
+        xie->normalize(width, height);
+
+        nixie = std::make_shared<PixelMap>((this->width / 4) * 3, this->height / 2, this->width / 4, this->height / 2, std::make_shared<ColorRGB>(255, 255, 255));
+        pngLoader->colorVectorToPixelMap(colorVector, nixie);
+        std::shared_ptr<Fliter> fliternixie = std::make_shared<Fliter>(nixie);
+        nixie = fliternixie->inverse_harmonic();
+        nixie->normalize(width, height);
+
+
         fps->setSpacing(2);
         fps->draw("FPS:");
         fps->normalize(width, height);
 
         fpsNum->setSpacing(2);
 
+        Open->draw("Open");
+        Open->normalize(width, height);
+        IP->draw("IP");
+        IP->normalize(width, height);
 
         CPU->setSpacing(2);
         CPU->draw("CPU:");
@@ -52,42 +101,6 @@ namespace OpenIP {
         MEM->draw("MEM:");
         MEM->normalize(width, height);
         MEMNUM->setSpacing(2);
-
-        yuantu = std::make_shared<PixelMap>(0,0,160,240,std::make_shared<ColorRGB>(0,0,0));
-        pngLoader->colorVectorToPixelMap(colorVector,yuantu);
-        yuantu->normalize(width,height);
-
-        huidu = std::make_shared<PixelMap>(160,0,160,240,std::make_shared<ColorRGB>(0,0,0));
-        pngLoader->colorVectorToPixelMap(colorVector,huidu);
-        std::shared_ptr<Fliter> huiduFilter = std::make_shared<Fliter>(huidu);
-        huidu = huiduFilter->gray();
-        huidu->normalize(width,height);
-
-        erzhi = std::make_shared<PixelMap>(320,0,160,240,std::make_shared<ColorRGB>(0,0,0));
-        pngLoader->colorVectorToPixelMap(colorVector,erzhi);
-        std::shared_ptr<Fliter> erzhiFilter = std::make_shared<Fliter>(erzhi);
-        erzhi = erzhiFilter->gray();
-        std::shared_ptr<Segmentation> erzhiSegmentation = std::make_shared<Segmentation>(erzhi);
-        erzhi = erzhiSegmentation->convolution(OPERATOR::Sobel,0.6);
-
-        for(int i = 0;i<erzhi->getWidth();i++){
-            for(int j = 0;j<erzhi->getWidth();j++){
-
-            }
-        }
-
-        erzhi->normalize(width,height);
-
-
-        line = std::make_shared<PixelMap>(480,0,160,240,std::make_shared<ColorRGB>(0,0,0));
-        pngLoader->colorVectorToPixelMap(colorVector,line);
-        std::shared_ptr<Fliter> lineFilter = std::make_shared<Fliter>(line);
-        line = lineFilter->gray();
-        std::shared_ptr<Segmentation> lineSegmentation = std::make_shared<Segmentation>(line);
-        line = lineSegmentation->convolution(OPERATOR::Sobel,0.6);
-        line = lineSegmentation->beelineFitting(std::make_shared<ColorRGB>(255,0,0));
-        line->normalize(width,height);
-
 
     }
 
@@ -102,10 +115,7 @@ namespace OpenIP {
             default:
                 break;
         }
-
     }
-
-
 
     GLfloat ratio = 1.f;
 
@@ -129,16 +139,19 @@ namespace OpenIP {
 
 
     void Board::update() {
-
         yuantu->render();
-        huidu->render();
-
-        erzhi->render();
-        line->render();
+        zhongzhi->render();
+        zuidazhi->render();
+        zuixiaozhi->render();
+        suanshu->render();
+        jihe->render();
+        xie->render();
+        nixie->render();
+        Open->render();
+        IP->render();
 
         renderFPS();
         renderSysInfo();
-
 
     }
 

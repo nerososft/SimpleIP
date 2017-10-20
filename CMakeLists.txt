@@ -15,11 +15,15 @@ set(SOURCE_FILES
         PNGLoader.cpp PNGLoader.h
         Font.cpp Font.h
         JPEGLoader.cpp JPEGLoader.h
-        Fliter.cpp Fliter.h
+        filter/Fliter.cpp filter/Fliter.h
         FpsLimter.cpp FpsLimter.h
         System.cpp System.h
-        rl/ValueIteration.cpp rl/ValueIteration.h
-        rl/PolicyIteration.cpp rl/PolicyIteration.h)
+        rl/ValueIteration.cpp
+        rl/ValueIteration.h rl/PolicyIteration.cpp
+        rl/PolicyIteration.h rl/RandomPolicyIteration.cpp
+        rl/RandomPolicyIteration.h rl/Action.cpp rl/Action.h
+        rl/TerminalState.cpp rl/TerminalState.h
+        segmentation/Segmentation.cpp segmentation/Segmentation.h)
 
 
 

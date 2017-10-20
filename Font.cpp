@@ -10,8 +10,15 @@
 #include <freetype/ftcache.h>
 
 namespace OpenIP{
-    Font::Font(char *ttfPath, FONT_MODE font_mode,  std::shared_ptr<ColorRGB> foreColor, std::shared_ptr<ColorRGB> backColor, int width, int height, int x, int y) : ttfPath(ttfPath), font_mode(font_mode), foreColor(foreColor), backColor(backColor), width(width), height(height), x(x),
-                                                                                                                                     y(y) {
+    Font::Font(char *ttfPath, FONT_MODE font_mode,  std::shared_ptr<ColorRGB> foreColor, std::shared_ptr<ColorRGB> backColor, int width, int height, int x, int y) :
+            ttfPath(ttfPath),
+            font_mode(font_mode),
+            foreColor(foreColor),
+            backColor(backColor),
+            width(width),
+            height(height),
+            x(x),
+            y(y) {
         error  =  FT_Init_FreeType( & pFTLib);
         if (error)
         {
@@ -70,7 +77,6 @@ namespace OpenIP{
                 }
 
                 fontPixels->setPixelMap(font);
-                fontPixels->flipUpDown();
 
                 FT_Done_Glyph(glyph);
                 glyph  =  NULL;

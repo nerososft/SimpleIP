@@ -11,6 +11,9 @@
 #include "PixelMap.h"
 
 namespace  OpenIP {
+    enum ALPHA{
+        YES,NO
+    };
     class PNGLoader {
     private:
         int width;
@@ -22,11 +25,13 @@ namespace  OpenIP {
 
         std::shared_ptr<PixelMap> pixelMap;
 
+        ALPHA alpha;
+
 
     public:
 
+        PNGLoader(ALPHA alpha);
 
-        PNGLoader();
 
         std::vector<std::vector<std::shared_ptr<ColorRGB>>> getPixelsMap() { return this->pixels; };
 
@@ -35,7 +40,7 @@ namespace  OpenIP {
         int getHeight() { return this->height; };
 
 
-        std::vector<std::vector<std::shared_ptr<ColorRGB>>> loadPNG(char *filename);
+        std::vector<std::vector<std::shared_ptr<ColorRGB>>> loadPNG(char *filename,int w,int h);
 
         void loadPNGToPixelMap(char *filename,std::shared_ptr<PixelMap> pixelMap1);
 

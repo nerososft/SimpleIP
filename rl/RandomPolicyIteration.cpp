@@ -2,12 +2,21 @@
 // Created by neroyang on 2017/10/19.
 //
 
-#include "ValueIteration.h"
 #include <iostream>
+#include "RandomPolicyIteration.h"
 #include  <math.h>
-#include "../Math.h"
 
-double ValueIteration::doAction(int x, int y, std::shared_ptr<Action> action) {
+double RandomPolicyIteration::doAction(int x, int y, std::shared_ptr<Action> action) {
+
+    for(int terminalNum = 0;terminalNum<terminalStates.size();terminalNum++){              //终结态
+        if(x == terminalStates[terminalNum]->getX() && y==terminalStates[terminalNum]->getY()) {
+            if (terminalStates[terminalNum]->isAbsorbing()) {
+                return terminalStates[terminalNum]->getTerminalValue();
+            }else{
+                return terminalStates[terminalNum]->getTerminalValue() + factor * (1/actions.size()) * (rewords[0][0]+rewords[0][height]+rewords[width][0]+rewords[width][height]);
+            }
+        }
+    }
 
     switch(action->getActionID()){
         case 1: //up
@@ -37,23 +46,18 @@ double ValueIteration::doAction(int x, int y, std::shared_ptr<Action> action) {
     }
 }
 
-double ValueIteration::doAllAction(int x,int y){
+double RandomPolicyIteration::doAllAction(int x,int y){
     double rew = 0.0;
-    double costActions[4];
     for(int a = 0;a<actions.size();a++){
         double actionCost = doAction(x,y,actions[a]); //动作花费
-        costActions[a] = actionCost;
+        rew+=actionCost; //动作花费
     }
-    std::shared_ptr<OpenIP::Math> math = std::make_shared<OpenIP::Math>();
-    int len = sizeof(costActions) / sizeof(double);
-    math->quickSortDouble(costActions,0,len-1);
-    rew += costActions[3];
     rew += stepCost; //一步花费
     cha[x][y] = rew-rewords[x][y];
     return rew;
 }
 
-bool ValueIteration::checkOver(){
+bool RandomPolicyIteration::checkOver(){
     double max = 0;
     for(int i = 0;i<width;i++){
         for(int j = 0;j<height;j++){
@@ -71,7 +75,7 @@ bool ValueIteration::checkOver(){
     return false;
 }
 
-std::vector<std::vector<double>> ValueIteration::train(){
+std::vector<std::vector<double>> RandomPolicyIteration::train(){
     while(!checkOver()) {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
@@ -82,13 +86,14 @@ std::vector<std::vector<double>> ValueIteration::train(){
     return rewords;
 }
 
-void ValueIteration::addPoint(int x,int y ,double targetValue){
-    rewords[x][y] = targetValue;
-    cha[x][y] = targetValue;
+void RandomPolicyIteration::addTerminalState(std::shared_ptr<TerminalState> terminalState){
+    terminalStates.push_back(terminalState);
+    rewords[terminalState->getX()][terminalState->getY()] = terminalState->getTerminalValue();
+    cha[terminalState->getX()][terminalState->getY()] = terminalState->getTerminalValue();
 }
 
-ValueIteration::ValueIteration(double factor, double pi, double stepCost,  int width, int height) : factor(factor), pi(pi), stepCost(stepCost),  width(width),
-                                                                                                                  height(height) {
+RandomPolicyIteration::RandomPolicyIteration(double factor, double pi, double stepCost,  int width, int height) : factor(factor), pi(pi), stepCost(stepCost),  width(width),
+                                                                                                                                                                      height(height) {
 
     //初始化动作集合
     actions.push_back(std::make_shared<Action>(1,"up"));

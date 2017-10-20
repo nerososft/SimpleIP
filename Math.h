@@ -13,6 +13,8 @@ namespace OpenIP {
         Math();
 
         void quickSort(float s[], int l, int r);
+
+        void quickSortDouble(double s[], int l, int r);
     };
 
 }

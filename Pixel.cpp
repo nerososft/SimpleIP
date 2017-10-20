@@ -12,7 +12,7 @@ namespace OpenIP {
 
     void Pixel::normalize(int width, int height) {
         this->rectangle->setX(-1.0f + (2.0f / width) * this->x);
-        this->rectangle->setY(-1.0f + (2.0f / height) * this->y);
+        this->rectangle->setY(1.0f - (2.0f / height) * this->y);
         this->rectangle->setWidth((2.0f / width));
         this->rectangle->setHeight((2.0f / height));
     }

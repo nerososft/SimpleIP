@@ -2,14 +2,16 @@
 // Created by neroyang on 2017/10/19.
 //
 
-#ifndef GP_HW_02_VALUEITERATION_H
-#define GP_HW_02_VALUEITERATION_H
+#ifndef GP_HW_02_RANDOMPOLICYITERATION_H
+#define GP_HW_02_RANDOMPOLICYITERATION_H
 
 
 #include <vector>
+#include <string>
 #include "Action.h"
+#include "TerminalState.h"
 
-class ValueIteration {
+class RandomPolicyIteration {
 private:
     double factor;
     double pi;
@@ -25,10 +27,12 @@ private:
     std::vector<std::vector<double>> cha;
     std::vector<std::vector<double>> rewords;
 
-public:
-    ValueIteration(double factor, double pi, double stepCost,int width, int height);
+    std::vector<std::shared_ptr<TerminalState>> terminalStates;
 
-    void addPoint(int x,int y ,double targetValue);
+public:
+    RandomPolicyIteration(double factor, double pi, double stepCost,int width, int height);
+
+    void addTerminalState(std::shared_ptr<TerminalState> terminalState);
 
     double doAction(int x,int y,std::shared_ptr<Action> action);
 
@@ -40,4 +44,4 @@ public:
 };
 
 
-#endif //GP_HW_02_VALUEITERATION_H
+#endif //GP_HW_02_RANDOMPOLICYITERATION_H

@@ -41,40 +41,31 @@ namespace OpenIP {
 
         STATE state;
         std::shared_ptr<FpsLimter> _fpsLimter = std::make_shared<FpsLimter>();
-        Font* fps = new Font("default.otf", FONT_MODE::TRANSPARENT,std::make_shared<ColorRGB>(0,255,255), std::make_shared<ColorRGB>(0,255,0), 60, 60,10, 460);
-        Font*  fpsNum = new Font("default.otf", FONT_MODE::TRANSPARENT,std::make_shared<ColorRGB>(0,255,255), std::make_shared<ColorRGB>(0,255,0), 60, 60,60, 460);
+        Font* fps = new Font("default.otf", FONT_MODE::TRANSPARENT,std::make_shared<ColorRGB>(0,255,255), std::make_shared<ColorRGB>(0,255,0), 60, 60,10, 5);
+        Font*  fpsNum = new Font("default.otf", FONT_MODE::TRANSPARENT,std::make_shared<ColorRGB>(0,255,255), std::make_shared<ColorRGB>(0,255,0), 60, 60,60, 5);
 
         std::shared_ptr<System> system = std::make_shared<System>();
-        Font*  CPU = new Font("default.otf", FONT_MODE::TRANSPARENT,std::make_shared<ColorRGB>(0,255,255), std::make_shared<ColorRGB>(0,255,0), 60, 60,10, 445);
-        Font*  CPUNUM = new Font("default.otf", FONT_MODE::TRANSPARENT,std::make_shared<ColorRGB>(0,255,255), std::make_shared<ColorRGB>(0,255,0), 60, 60,60, 445);
+        Font*  CPU = new Font("default.otf", FONT_MODE::TRANSPARENT,std::make_shared<ColorRGB>(0,255,255), std::make_shared<ColorRGB>(0,255,0), 60, 60,10, 20);
+        Font*  CPUNUM = new Font("default.otf", FONT_MODE::TRANSPARENT,std::make_shared<ColorRGB>(0,255,255), std::make_shared<ColorRGB>(0,255,0), 60, 60,60, 20);
 
-        Font*   MEM = new Font("default.otf", FONT_MODE::TRANSPARENT,std::make_shared<ColorRGB>(0,255,255), std::make_shared<ColorRGB>(0,255,0), 60, 60,10, 430);
-        Font*  MEMNUM = new Font("default.otf", FONT_MODE::TRANSPARENT,std::make_shared<ColorRGB>(0,255,255), std::make_shared<ColorRGB>(0,255,0), 60, 60,60, 430);
-
-        std::shared_ptr<PNGLoader> pngLoader =std::make_shared<PNGLoader>();
-        std::vector<std::vector<std::shared_ptr<ColorRGB>>> colorVector = pngLoader->loadPNG("yz.png");
-
-        std::shared_ptr<PixelMap> yuantu;       //原图
-        std::shared_ptr<PixelMap>  zhongzhi;     //中值滤波
-        std::shared_ptr<PixelMap> zuidazhi;     //最大值
-        std::shared_ptr<PixelMap>  zuixiaozhi;   //最小值
-
-        std::shared_ptr<PixelMap>  suanshu;      //算数均值
-        std::shared_ptr<PixelMap> jihe;         //几何均值
-        std::shared_ptr<PixelMap>  xie;          //谐波
-        std::shared_ptr<PixelMap>  nixie;        //逆谐波
+        Font*   MEM = new Font("default.otf", FONT_MODE::TRANSPARENT,std::make_shared<ColorRGB>(0,255,255), std::make_shared<ColorRGB>(0,255,0), 60, 60,10, 35);
+        Font*  MEMNUM = new Font("default.otf", FONT_MODE::TRANSPARENT,std::make_shared<ColorRGB>(0,255,255), std::make_shared<ColorRGB>(0,255,0), 60, 60,60, 35);
 
 
-        Font*  Open = new Font("default.otf", FONT_MODE::TRANSPARENT,std::make_shared<ColorRGB>(255,255,255), std::make_shared<ColorRGB>(0,255,0), 500, 500,100, 200);
-        Font*  IP = new Font("ip2.TTF", FONT_MODE::TRANSPARENT,std::make_shared<ColorRGB>(0,255,0), std::make_shared<ColorRGB>(0,255,0), 500, 500,400, 200);
+        std::shared_ptr<PNGLoader> pngLoader =std::make_shared<PNGLoader>(ALPHA::NO);
+        std::vector<std::vector<std::shared_ptr<ColorRGB>>> colorVector = pngLoader->loadPNG("photo.png",0,0);
 
-
+        std::shared_ptr<PixelMap> yuantu;
+        std::shared_ptr<PixelMap> huidu;
+        std::shared_ptr<PixelMap> erzhi;
+        std::shared_ptr<PixelMap> line;
 
     public:
         Board(char *title, int width, int height, std::shared_ptr<ColorRGB> backGround);
 
+        virtual void init();
 
-        void update();
+        virtual void update();
 
 
         void renderFPS();
@@ -93,5 +84,6 @@ namespace OpenIP {
 
         int run();
     };
+
 }
 #endif /* Board_hpp */

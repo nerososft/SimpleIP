@@ -7,7 +7,8 @@
 #include <iostream>
 #include "PNGLoader.h"
 namespace OpenIP {
-    std::vector<std::vector<std::shared_ptr<ColorRGB>>> PNGLoader::loadPNG(char *filename) {
+    std::vector<std::vector<std::shared_ptr<ColorRGB>>> PNGLoader::loadPNG(char *filename,int w,int h) {
+
         FILE *file = fopen(filename, "rb");
 
         png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, 0, 0, 0);
@@ -26,8 +27,16 @@ namespace OpenIP {
         int m_width = png_get_image_width(png_ptr, info_ptr);
         int m_height = png_get_image_height(png_ptr, info_ptr);
 
-        this->width = m_width;
-        this->height = m_height;
+        if(w==0 || h==0) {
+            this->width = m_width;
+            this->height = m_height;
+        }else{
+            this->width = w;
+            this->height = h;
+        }
+
+        std::cout<<width<<std::endl;
+        std::cout<<height<<std::endl;
 
         int color_type = png_get_color_type(png_ptr, info_ptr);
 
@@ -42,15 +51,26 @@ namespace OpenIP {
         png_bytep *row_pointers = png_get_rows(png_ptr, info_ptr);
 
 
+
         for (int i = 0; i < m_height; i++) {
             std::vector<std::shared_ptr<ColorRGB>> color;
-            for (int j = 0; j < (4 * m_width); j += 4) {
-                this->bgra[pos++] = row_pointers[i][j + 2]; // blue
-                this->bgra[pos++] = row_pointers[i][j + 1]; // green
-                this->bgra[pos++] = row_pointers[i][j];   // red
-                this->bgra[pos++] = row_pointers[i][j + 3]; // alpha
+            if(alpha==ALPHA::YES) {
+                for (int j = 0; j < (4 * m_width); j += 4) {
+                    this->bgra[pos++] = row_pointers[i][j + 2]; // blue
+                    this->bgra[pos++] = row_pointers[i][j + 1]; // green
+                    this->bgra[pos++] = row_pointers[i][j];   // red
+                    this->bgra[pos++] = row_pointers[i][j + 3]; // alpha
 
-                color.push_back(std::make_shared<ColorRGB>(row_pointers[i][j], row_pointers[i][j + 1], row_pointers[i][j + 2]));
+                    color.push_back(std::make_shared<ColorRGB>(row_pointers[i][j], row_pointers[i][j + 1], row_pointers[i][j + 2]));
+                }
+            }else if(alpha==ALPHA::NO){
+                for (int j = 0; j < (3 * m_width); j += 3) {
+                    this->bgra[pos++] = row_pointers[i][j + 2]; // blue
+                    this->bgra[pos++] = row_pointers[i][j + 1]; // green
+                    this->bgra[pos++] = row_pointers[i][j];   // red
+
+                    color.push_back(std::make_shared<ColorRGB>(row_pointers[i][j], row_pointers[i][j + 1], row_pointers[i][j + 2]));
+                }
             }
             pixels.push_back(color);
         }
@@ -63,7 +83,7 @@ namespace OpenIP {
     }
 
     void  PNGLoader::loadPNGToPixelMap(char *filename,std::shared_ptr<PixelMap> pixelMap1){
-        std::vector<std::vector<std::shared_ptr<ColorRGB>>> pixelsMap = loadPNG(filename);
+        std::vector<std::vector<std::shared_ptr<ColorRGB>>> pixelsMap = loadPNG(filename,0,0);
         pixelMap1->setWidth(this->width);
         pixelMap1->setHeight(this->height);
         std::vector<std::vector<std::shared_ptr<Pixel>>> pixels;
@@ -89,10 +109,12 @@ namespace OpenIP {
             pixels.push_back(pp);
         }
         pixelMap1->setPixelMap(pixels);
+        pixelMap1->flipUpDown();
     }
 
-    PNGLoader::PNGLoader() {
+    PNGLoader::PNGLoader(ALPHA alpha) : alpha(alpha) {
         this->width = 160;
         this->height = 240;
     }
+
 }

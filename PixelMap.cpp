@@ -24,7 +24,12 @@ namespace OpenIP {
         }
     }
 
-    PixelMap::PixelMap(int x, int y, int width, int height, std::shared_ptr<ColorRGB> backgroundColor) : x(x), y(y), height(height), width(width), backgroundColor(backgroundColor) {
+    PixelMap::PixelMap(int x, int y, int width, int height, std::shared_ptr<ColorRGB> backgroundColor) :
+            x(x),
+            y(y),
+            height(height),
+            width(width),
+            backgroundColor(backgroundColor) {
         for (int i = 0; i < width; i++) {
             std::vector<std::shared_ptr<Pixel>> pp;
             for (int j = 0; j < height; j++) {
