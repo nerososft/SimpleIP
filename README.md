@@ -2,6 +2,8 @@
 
 ![屏幕快照 2017-10-17 下午8.31.29](https://raw.githubusercontent.com/nerososft/SimpleIP/master/屏幕快照%202017-10-18%20下午4.15.18.png)
 
+### 尚在测试中的即将加入的增强学习部分的 demo
+![屏幕快照 2017-10-17 下午8.31.29](https://raw.githubusercontent.com/nerososft/SimpleIP/master/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-10-20%20%E4%B8%8B%E5%8D%882.32.19.png)
 ## 窗口
 
 ### 1. 新建窗口
