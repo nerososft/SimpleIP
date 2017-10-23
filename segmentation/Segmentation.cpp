@@ -114,21 +114,24 @@ namespace OpenIP{
     }
 
     std::shared_ptr<PixelMap> Segmentation::beelineFitting(){
-        std::cout<<"fitting..."<<std::endl;
         // A=∑xi^2,B=∑xi,C=∑yixi,D=∑yi
         std::shared_ptr<Line> line;
         switch(this->methodType){
-            case FUNC::LSF:
+            case FUNC::LSF: {
                 line = this->lsfFuncFitLine(this->pixelMap);
-               break;
-            case FUNC::RANSAC:
+                break;
+            }
+            case FUNC::RANSAC: {
                 line = this->ransacFuncFitLine(this->pixelMap);
                 break;
-            case FUNC::HOUGH:
+            }
+            case FUNC::HOUGH: {
                 line = this->houghFuncFitLine(this->pixelMap);
                 break;
-            default:
+            }
+            default: {
                 break;
+            }
         }
         std::cout<<"k: "<<line->getK()<<std::endl;
         std::cout<<"b: "<<line->getB()<<std::endl;
@@ -179,7 +182,77 @@ namespace OpenIP{
     }
 
     std::shared_ptr<Line> Segmentation::houghFuncFitLine(std::shared_ptr<PixelMap> pixelMap){
+        std::vector<std::vector<std::shared_ptr<Pixel>>> tmp = this->pixelMap->getPixelMap();
+        int *pArray;
+        int iRMax = (int)sqrt(pow(pixelMap->getWidth(),2)  + pow(pixelMap->getHeight(),2)) + 1;
+        int iThMax = 361;
+        int iTh = 0;
+        int iR;
+        int iMax = -1;
+        int iThMaxIndex = -1;
+        int iRMaxIndex = -1;
 
+        float pR;
+        float pTh;
+
+        pArray = new int[iRMax * iThMax];
+        memset(pArray, 0, sizeof(int) * iRMax * iThMax);
+
+        float fRate = (float)(PI/180);
+
+        for (int y = 0; y < pixelMap->getHeight(); y++)
+        {
+            for (int x = 0; x < pixelMap->getWidth(); x++)
+            {
+                if(tmp[x][y]->getColor()->R() == 1)
+                {
+                    for(iTh = 0; iTh < iThMax; iTh += 1)
+                    {
+                        iR = (int)(x * cos(iTh * fRate) + y * sin(iTh * fRate));
+
+                        if(iR > 0)
+                        {
+                            pArray[iR/1 * iThMax + iTh]++;
+                        }
+                    }
+                }
+
+            } // x
+        } // y
+
+        for(iR = 0; iR < iRMax; iR++)
+        {
+            for(iTh = 0; iTh < iThMax; iTh++)
+            {
+                int iCount = pArray[iR * iThMax + iTh];
+                if(iCount > iMax)
+                {
+                    iMax = iCount;
+                    iRMaxIndex = iR;
+                    iThMaxIndex = iTh;
+                }
+            }
+        }
+
+        if(iMax >= this->distanceThreshold)
+        {
+            pR = iRMaxIndex;
+            pTh = iThMaxIndex;
+        }
+
+        delete []pArray;
+
+        std::cout<<"R "<<pR<<std::endl;
+        std::cout<<"TH "<<pTh<<std::endl;
+
+
+        float x = pR/cos(pTh>90?pTh-90:pTh);
+        float y = pR/cos(90-pTh);
+        std::cout<<"X "<<x<<std::endl;
+        std::cout<<"Y "<<y<<std::endl;
+        std::cout<<"Y/X "<<y/x<<std::endl;
+
+        return std::make_shared<Line>(y/x,y);
     }
 
     std::shared_ptr<PixelMap> Segmentation::getPixelMap(){

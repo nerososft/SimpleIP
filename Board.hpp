@@ -21,7 +21,6 @@
 #include "System.h"
 #include <vector>
 
-
 namespace OpenIP {
 
     enum STATE{

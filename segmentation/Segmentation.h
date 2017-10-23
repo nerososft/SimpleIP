@@ -9,6 +9,8 @@
 #include "../PixelMap.h"
 #include "Line.h"
 
+#define PI 3.14159265354
+
 namespace  OpenIP {
     enum OPERATOR{
         Sobel,Roberts,Prewitt
@@ -22,7 +24,7 @@ namespace  OpenIP {
         std::shared_ptr<PixelMap> pixelMap;
         OPERATOR  optr;
         FUNC methodType;
-        float distanceThreshold = 0.5;
+        float distanceThreshold = 0;
         std::shared_ptr<ColorRGB> lineColor;
 
     public:

@@ -102,7 +102,7 @@ namespace OpenIP {
                     houghSegmentation->setOptr(OPERATOR::Sobel);
                     houghSegmentation->setDistanceThreshold(0.6);
         hough =     houghSegmentation->convolution();
-                    houghSegmentation->setMethodType(FUNC::LSF);
+                    houghSegmentation->setMethodType(FUNC::HOUGH);
                     houghSegmentation->setLineColor(std::make_shared<ColorRGB>(255,0,0));
         hough =     houghSegmentation->beelineFitting();
         hough->normalize(width,height);
