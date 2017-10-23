@@ -68,26 +68,44 @@ namespace OpenIP {
         std::shared_ptr<Fliter> erzhiFilter = std::make_shared<Fliter>(erzhi);
         erzhi = erzhiFilter->gray();
         std::shared_ptr<Segmentation> erzhiSegmentation = std::make_shared<Segmentation>(erzhi);
-        erzhi = erzhiSegmentation->convolution(OPERATOR::Sobel,0.6);
-
-        for(int i = 0;i<erzhi->getWidth();i++){
-            for(int j = 0;j<erzhi->getWidth();j++){
-
-            }
-        }
-
+                erzhiSegmentation->setOptr(OPERATOR::Sobel);
+                erzhiSegmentation->setDistanceThreshold(0.6);
+        erzhi = erzhiSegmentation->convolution();
         erzhi->normalize(width,height);
 
 
         line = std::make_shared<PixelMap>(480,0,160,240,std::make_shared<ColorRGB>(0,0,0));
         pngLoader->colorVectorToPixelMap(colorVector,line);
-        std::shared_ptr<Fliter> lineFilter = std::make_shared<Fliter>(line);
-        line = lineFilter->gray();
         std::shared_ptr<Segmentation> lineSegmentation = std::make_shared<Segmentation>(line);
-        line = lineSegmentation->convolution(OPERATOR::Sobel,0.6);
-        line = lineSegmentation->beelineFitting(std::make_shared<ColorRGB>(255,0,0));
+                    lineSegmentation->setOptr(OPERATOR::Sobel);
+                    lineSegmentation->setDistanceThreshold(0.6);
+        line =      lineSegmentation->convolution();
+                    lineSegmentation->setMethodType(FUNC::LSF);
+                    lineSegmentation->setLineColor(std::make_shared<ColorRGB>(255,0,0));
+        line =      lineSegmentation->beelineFitting();
         line->normalize(width,height);
 
+        ransac = std::make_shared<PixelMap>(0,240,160,240,std::make_shared<ColorRGB>(0,0,0));
+        pngLoader->colorVectorToPixelMap(colorVector,ransac);
+        std::shared_ptr<Segmentation> ransacSegmentation = std::make_shared<Segmentation>(ransac);
+                    ransacSegmentation->setOptr(OPERATOR::Sobel);
+                    ransacSegmentation->setDistanceThreshold(0.6);
+        ransac =    ransacSegmentation->convolution();
+                    ransacSegmentation->setMethodType(FUNC::LSF);
+                    ransacSegmentation->setLineColor(std::make_shared<ColorRGB>(255,0,0));
+        ransac =    ransacSegmentation->beelineFitting();
+        ransac->normalize(width,height);
+
+        hough = std::make_shared<PixelMap>(160,240,160,240,std::make_shared<ColorRGB>(0,0,0));
+        pngLoader->colorVectorToPixelMap(colorVector,hough);
+        std::shared_ptr<Segmentation> houghSegmentation = std::make_shared<Segmentation>(hough);
+                    houghSegmentation->setOptr(OPERATOR::Sobel);
+                    houghSegmentation->setDistanceThreshold(0.6);
+        hough =     houghSegmentation->convolution();
+                    houghSegmentation->setMethodType(FUNC::LSF);
+                    houghSegmentation->setLineColor(std::make_shared<ColorRGB>(255,0,0));
+        hough =     houghSegmentation->beelineFitting();
+        hough->normalize(width,height);
 
     }
 
@@ -136,8 +154,12 @@ namespace OpenIP {
         erzhi->render();
         line->render();
 
-        renderFPS();
-        renderSysInfo();
+        ransac->render();
+
+        hough->render();
+
+        //renderFPS();
+        //renderSysInfo();
 
 
     }

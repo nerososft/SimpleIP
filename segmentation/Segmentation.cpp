@@ -12,19 +12,81 @@ namespace OpenIP{
 
     }
 
+    std::shared_ptr<PixelMap> Segmentation::convolution() {
+        double op_x_matrix[3][3];
 
-    std::shared_ptr<PixelMap> Segmentation::convolution(OPERATOR op,float yuzhi) {
+        double op_y_matrix[3][3];
 
-            double op_x_matrix[3][3] = {
-                    {-1,-2,-1},
-                    {0,0,0},
-                    {1,2,1}
-            };
-            double op_y_matrix[3][3] = {
-                {-1,0,1},
-                {-2,0,2},
-                {-1,0,1}
-            };
+        int size_operator = 3;
+
+        switch (this->optr){
+            case OPERATOR::Sobel: {
+                double sobel_x_matrix[3][3] = {
+                        {-1, -2, -1},
+                        {0,  0,  0},
+                        {1,  2,  1}
+                };
+                memcpy(op_x_matrix, sobel_x_matrix, sizeof(sobel_x_matrix));
+
+                double sobel_y_matrix[3][3] = {
+                        {-1, 0, 1},
+                        {-2, 0, 2},
+                        {-1, 0, 1}
+                };
+                memcpy(op_y_matrix, sobel_y_matrix, sizeof(sobel_y_matrix));
+                size_operator = 3;
+                break;
+            }
+            case OPERATOR::Prewitt: {
+                double prewitt_x_matrix[3][3] = {
+                        {-1, -1, -1},
+                        {0,  0,  0},
+                        {1,  1,  1}
+                };
+                memcpy(op_x_matrix, prewitt_x_matrix, sizeof(prewitt_x_matrix));
+
+                double prewitt_y_matrix[3][3] = {
+                        {-1, 0, 1},
+                        {-1, 0, 1},
+                        {-1, 0, 1}
+                };
+                memcpy(op_y_matrix, prewitt_y_matrix, sizeof(prewitt_y_matrix));
+                size_operator = 3;
+                break;
+            }
+            case OPERATOR::Roberts: {
+                double roberts_x_matrix[2][2] = {
+                        {-1, 0},
+                        {0,  1}
+                };
+                memcpy(op_x_matrix, roberts_x_matrix, sizeof(roberts_x_matrix));
+
+                double roberts_y_matrix[2][2] = {
+                        {0, -1},
+                        {1, 0}
+                };
+                memcpy(op_y_matrix, roberts_y_matrix, sizeof(roberts_y_matrix));
+                size_operator = 2;
+                break;
+            }
+            default: {
+                double default_x_matrix[3][3] = {
+                        {-1, -2, -1},
+                        {0,  0,  0},
+                        {1,  2,  1}
+                };
+                memcpy(op_x_matrix, default_x_matrix, sizeof(default_x_matrix));
+
+                double default_y_matrix[3][3] = {
+                        {-1, 0, 1},
+                        {-2, 0, 2},
+                        {-1, 0, 1}
+                };
+                memcpy(op_y_matrix, default_y_matrix, sizeof(default_y_matrix));
+                size_operator = 3;
+                break;
+            }
+        }
 
         std::vector<std::vector<std::shared_ptr<Pixel>>> tmp = this->pixelMap->getPixelMap();
         for (int i = 0; i < this->pixelMap->getWidth(); i++) {
@@ -32,13 +94,13 @@ namespace OpenIP{
                 if (i > 1 && i < this->pixelMap->getWidth() - 1 && j > 1 && j < this->pixelMap->getHeight() - 1) {
                     double Gx = 0;
                     double Gy = 0;
-                    for (int r = -1; r < 2; r++) {
-                        for (int c = -1; c < 2; c++) {
+                    for (int r = -1; r < size_operator-1; r++) {
+                        for (int c = -1; c < size_operator-1; c++) {
                             Gx+=tmp[i+r][j+c]->getColor()->R()*op_x_matrix[r+1][c+1];
                             Gy+=tmp[i+r][j+c]->getColor()->R()*op_y_matrix[r+1][c+1];
                         }
                     }
-                    if((abs(Gx)+abs(Gy)) > yuzhi){
+                    if((abs(Gx)+abs(Gy)) > this->distanceThreshold){
                         pixelMap->changeColor(i,j,std::make_shared<ColorRGB>((abs(Gx)+abs(Gy))*255,(abs(Gx)+abs(Gy))*255,(abs(Gx)+abs(Gy))*255));
                     }else{
                         pixelMap->changeColor(i,j,std::make_shared<ColorRGB>((0)*255,(0)*255,(0)*255));
@@ -51,28 +113,56 @@ namespace OpenIP{
         return this->getPixelMap();
     }
 
-    std::shared_ptr<PixelMap> Segmentation::beelineFitting(std::shared_ptr<ColorRGB> color){
+    std::shared_ptr<PixelMap> Segmentation::beelineFitting(){
+        std::cout<<"fitting..."<<std::endl;
         // A=∑xi^2,B=∑xi,C=∑yixi,D=∑yi
-        // Ak+Bb=C
-        // Bk+nb=D
+        std::shared_ptr<Line> line;
+        switch(this->methodType){
+            case FUNC::LSF:
+                line = this->lsfFuncFitLine(this->pixelMap);
+               break;
+            case FUNC::RANSAC:
+                line = this->ransacFuncFitLine(this->pixelMap);
+                break;
+            case FUNC::HOUGH:
+                line = this->houghFuncFitLine(this->pixelMap);
+                break;
+            default:
+                break;
+        }
+        std::cout<<"k: "<<line->getK()<<std::endl;
+        std::cout<<"b: "<<line->getB()<<std::endl;
+        for(int i  = 0;i<this->pixelMap->getWidth();i++){
+            std::cout<<"x:"<<i<<" y:"<<(line->getK() * i + line->getB())<<std::endl;
+            if((line->getK() * i + line->getB())>0 && (line->getK() * i + line->getB())<pixelMap->getHeight()) {
+                pixelMap->changeColor(i, (line->getK() * i + line->getB()), this->lineColor);
+            }
+        }
+        return this->getPixelMap();
+    }
+
+    std::shared_ptr<Line> Segmentation::lsfFuncFitLine(std::shared_ptr<PixelMap> pixelMap){
         std::vector<std::vector<std::shared_ptr<Pixel>>> tmp = this->pixelMap->getPixelMap();
-        int A=0,B=0,C=0,D=0;
+
+        int A=0,B=0,C=0,D=0,N=0;
         for (int i = 0; i < this->pixelMap->getWidth(); i++) {
             for (int j = 0; j < this->pixelMap->getHeight(); j++) {
-                if(tmp[i][j]->getColor()->R()>=200){
+                if(tmp[i][j]->getColor()->R()==1){
                     A+=pow(i,2);
                     B+=i;
                     C+=i*j;
                     D+=j;
-                    //count
+                    N++;
                 }
             }
         }
-        double k=0,b=0,tmp1 =0;
 
-        if(tmp1=(A*this->pixelMap->getWidth()-B*B))
+        long double k=0,b=0,tmp1 =0;
+//        k = ((A*D)-(B*C))/(N*A-pow(B,2));
+//        b = (N*C-B*D)/(N*A-pow(B,2));
+        if(tmp1=(A*N-B*B))
         {
-            k = (C*this->pixelMap->getWidth()-B*D)/tmp1;
+            k = (C*N-B*D)/tmp1;
             b = (A*D-C*B)/tmp1;
         }
         else
@@ -81,16 +171,15 @@ namespace OpenIP{
             b=0;
         }
 
-        std::cout<<"k: "<<k<<std::endl;
-        std::cout<<"b: "<<b<<std::endl;
-        for(int i  = 0;i<this->pixelMap->getWidth();i++){
-            std::cout<<"x:"<<i<<" y:"<<floor(k * i + b)<<std::endl;
-            if(floor(k * i + b)>0 && floor(k * i + b)<pixelMap->getHeight()) {
-                pixelMap->changeColor(i, floor(k * i + b), color);
-            }
-        }
+        return std::make_shared<Line>(k,b);
+    }
 
-        return this->getPixelMap();
+    std::shared_ptr<Line> Segmentation::ransacFuncFitLine(std::shared_ptr<PixelMap> pixelMap){
+
+    }
+
+    std::shared_ptr<Line> Segmentation::houghFuncFitLine(std::shared_ptr<PixelMap> pixelMap){
+
     }
 
     std::shared_ptr<PixelMap> Segmentation::getPixelMap(){
@@ -107,5 +196,29 @@ namespace OpenIP{
 
     void Segmentation::setOptr(OPERATOR optr) {
         Segmentation::optr = optr;
+    }
+
+    FUNC Segmentation::getMethodType() const {
+        return methodType;
+    }
+
+    void Segmentation::setMethodType(FUNC methodType) {
+        Segmentation::methodType = methodType;
+    }
+
+    float Segmentation::getDistanceThreshold() const {
+        return distanceThreshold;
+    }
+
+    void Segmentation::setDistanceThreshold(float distanceThreshold) {
+        Segmentation::distanceThreshold = distanceThreshold;
+    }
+
+    const std::shared_ptr<ColorRGB> &Segmentation::getLineColor() const {
+        return lineColor;
+    }
+
+    void Segmentation::setLineColor(const std::shared_ptr<ColorRGB> &lineColor) {
+        Segmentation::lineColor = lineColor;
     }
 }

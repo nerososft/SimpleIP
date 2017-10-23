@@ -52,13 +52,15 @@ namespace OpenIP {
         Font*  MEMNUM = new Font("default.otf", FONT_MODE::TRANSPARENT,std::make_shared<ColorRGB>(0,255,255), std::make_shared<ColorRGB>(0,255,0), 60, 60,60, 35);
 
 
-        std::shared_ptr<PNGLoader> pngLoader =std::make_shared<PNGLoader>(ALPHA::NO);
-        std::vector<std::vector<std::shared_ptr<ColorRGB>>> colorVector = pngLoader->loadPNG("photo.png",0,0);
+        std::shared_ptr<PNGLoader> pngLoader =std::make_shared<PNGLoader>(ALPHA::YES);
+        std::vector<std::vector<std::shared_ptr<ColorRGB>>> colorVector = pngLoader->loadPNG("line.png",0,0);
 
         std::shared_ptr<PixelMap> yuantu;
         std::shared_ptr<PixelMap> huidu;
         std::shared_ptr<PixelMap> erzhi;
         std::shared_ptr<PixelMap> line;
+        std::shared_ptr<PixelMap> ransac;
+        std::shared_ptr<PixelMap> hough;
 
     public:
         Board(char *title, int width, int height, std::shared_ptr<ColorRGB> backGround);

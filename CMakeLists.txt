@@ -23,7 +23,7 @@ set(SOURCE_FILES
         rl/PolicyIteration.h rl/RandomPolicyIteration.cpp
         rl/RandomPolicyIteration.h rl/Action.cpp rl/Action.h
         rl/TerminalState.cpp rl/TerminalState.h
-        segmentation/Segmentation.cpp segmentation/Segmentation.h)
+        segmentation/Segmentation.cpp segmentation/Segmentation.h segmentation/Line.cpp segmentation/Line.h)
 
 
 
