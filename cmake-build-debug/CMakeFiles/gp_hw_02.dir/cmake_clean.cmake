@@ -1,6 +1,5 @@
 file(REMOVE_RECURSE
   "CMakeFiles/gp_hw_02.dir/main.cpp.o"
-  "CMakeFiles/gp_hw_02.dir/Board.cpp.o"
   "CMakeFiles/gp_hw_02.dir/StateBase.cpp.o"
   "CMakeFiles/gp_hw_02.dir/Rectangle.cpp.o"
   "CMakeFiles/gp_hw_02.dir/PixelMap.cpp.o"
@@ -20,6 +19,10 @@ file(REMOVE_RECURSE
   "CMakeFiles/gp_hw_02.dir/rl/TerminalState.cpp.o"
   "CMakeFiles/gp_hw_02.dir/segmentation/Segmentation.cpp.o"
   "CMakeFiles/gp_hw_02.dir/segmentation/Line.cpp.o"
+  "CMakeFiles/gp_hw_02.dir/Go.cpp.o"
+  "CMakeFiles/gp_hw_02.dir/MTC/MTC.cpp.o"
+  "CMakeFiles/gp_hw_02.dir/MTC/MTCNode.cpp.o"
+  "CMakeFiles/gp_hw_02.dir/network/HttpService.cpp.o"
   "gp_hw_02.pdb"
   "gp_hw_02"
 )

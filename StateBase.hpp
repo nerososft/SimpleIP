@@ -42,6 +42,19 @@ namespace OpenIP {
             if (event_handling_instance)
                 event_handling_instance->framebuffer_size_callback(window, w, h);
         }
+
+        virtual void mouse_button_callback(GLFWwindow* window, int button, int action, int mod) = 0;
+        virtual void cursor_position_callback(GLFWwindow* window, double x, double y) = 0;
+
+        static void mouse_button_callback_dispatch(GLFWwindow* window, int button, int action, int mod){
+            if (event_handling_instance)
+                event_handling_instance->mouse_button_callback(window, button, action,mod);
+        }
+
+        static void cursor_position_callback_dispatch(GLFWwindow* window, double x, double y){
+            if (event_handling_instance)
+                event_handling_instance->cursor_position_callback(window, x, y);
+        }
     };
 }
 #endif /* statebase_hpp */

@@ -17,21 +17,21 @@
 					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/neroyang/project/gp_hw_02/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="edit_cache">
-				<Option working_dir="/Users/neroyang/project/gp_hw_02/cmake-build-debug"/>
-				<Option type="4"/>
-				<MakeCommands>
-					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/neroyang/project/gp_hw_02/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/neroyang/project/gp_hw_02/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/neroyang/project/gp_hw_02/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/neroyang/project/gp_hw_02/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
 			<Target title="rebuild_cache">
 				<Option working_dir="/Users/neroyang/project/gp_hw_02/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
 					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/neroyang/project/gp_hw_02/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/neroyang/project/gp_hw_02/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/neroyang/project/gp_hw_02/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/neroyang/project/gp_hw_02/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/neroyang/project/gp_hw_02/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/neroyang/project/gp_hw_02/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
 					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/neroyang/project/gp_hw_02/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/neroyang/project/gp_hw_02/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/neroyang/project/gp_hw_02/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
@@ -45,16 +45,16 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="/usr/local/Cellar/glew/2.0.0/include"/>
-					<Add directory="/usr/local/Cellar/glfw/3.2.1/include"/>
+					<Add directory="/usr/local/Cellar/glfw/3.2.1/includes"/>
 					<Add directory="/System/Library/Frameworks/OpenGL.framework/Headers"/>
 					<Add directory="/usr/local/Cellar/freetype/2.7.1/include/freetype2"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
 					<Add directory="/usr/include"/>
 					<Add directory="/System/Library/Frameworks"/>
 					<Add directory="/Library/Frameworks"/>
-					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"/>
 				</Compiler>
 				<MakeCommands>
 					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/neroyang/project/gp_hw_02/cmake-build-debug/Makefile&quot;  VERBOSE=1 gp_hw_02"/>
@@ -71,16 +71,16 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="/usr/local/Cellar/glew/2.0.0/include"/>
-					<Add directory="/usr/local/Cellar/glfw/3.2.1/include"/>
+					<Add directory="/usr/local/Cellar/glfw/3.2.1/includes"/>
 					<Add directory="/System/Library/Frameworks/OpenGL.framework/Headers"/>
 					<Add directory="/usr/local/Cellar/freetype/2.7.1/include/freetype2"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
 					<Add directory="/usr/include"/>
 					<Add directory="/System/Library/Frameworks"/>
 					<Add directory="/Library/Frameworks"/>
-					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"/>
 				</Compiler>
 				<MakeCommands>
 					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/neroyang/project/gp_hw_02/cmake-build-debug/Makefile&quot;  VERBOSE=1 gp_hw_02/fast"/>
@@ -90,12 +90,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/neroyang/project/gp_hw_02/Board.cpp">
-			<Option target="gp_hw_02"/>
-		</Unit>
-		<Unit filename="/Users/neroyang/project/gp_hw_02/Board.hpp">
-			<Option target="gp_hw_02"/>
-		</Unit>
 		<Unit filename="/Users/neroyang/project/gp_hw_02/ColorRGB.cpp">
 			<Option target="gp_hw_02"/>
 		</Unit>
@@ -114,10 +108,28 @@
 		<Unit filename="/Users/neroyang/project/gp_hw_02/FpsLimter.h">
 			<Option target="gp_hw_02"/>
 		</Unit>
+		<Unit filename="/Users/neroyang/project/gp_hw_02/Go.cpp">
+			<Option target="gp_hw_02"/>
+		</Unit>
+		<Unit filename="/Users/neroyang/project/gp_hw_02/Go.h">
+			<Option target="gp_hw_02"/>
+		</Unit>
 		<Unit filename="/Users/neroyang/project/gp_hw_02/JPEGLoader.cpp">
 			<Option target="gp_hw_02"/>
 		</Unit>
 		<Unit filename="/Users/neroyang/project/gp_hw_02/JPEGLoader.h">
+			<Option target="gp_hw_02"/>
+		</Unit>
+		<Unit filename="/Users/neroyang/project/gp_hw_02/MTC/MTC.cpp">
+			<Option target="gp_hw_02"/>
+		</Unit>
+		<Unit filename="/Users/neroyang/project/gp_hw_02/MTC/MTC.h">
+			<Option target="gp_hw_02"/>
+		</Unit>
+		<Unit filename="/Users/neroyang/project/gp_hw_02/MTC/MTCNode.cpp">
+			<Option target="gp_hw_02"/>
+		</Unit>
+		<Unit filename="/Users/neroyang/project/gp_hw_02/MTC/MTCNode.h">
 			<Option target="gp_hw_02"/>
 		</Unit>
 		<Unit filename="/Users/neroyang/project/gp_hw_02/Math.cpp">
@@ -169,6 +181,12 @@
 			<Option target="gp_hw_02"/>
 		</Unit>
 		<Unit filename="/Users/neroyang/project/gp_hw_02/main.cpp">
+			<Option target="gp_hw_02"/>
+		</Unit>
+		<Unit filename="/Users/neroyang/project/gp_hw_02/network/HttpService.cpp">
+			<Option target="gp_hw_02"/>
+		</Unit>
+		<Unit filename="/Users/neroyang/project/gp_hw_02/network/HttpService.h">
 			<Option target="gp_hw_02"/>
 		</Unit>
 		<Unit filename="/Users/neroyang/project/gp_hw_02/rl/Action.cpp">

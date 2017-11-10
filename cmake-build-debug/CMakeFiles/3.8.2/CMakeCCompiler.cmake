@@ -1,13 +1,13 @@
 set(CMAKE_C_COMPILER "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc")
 set(CMAKE_C_COMPILER_ARG1 "")
 set(CMAKE_C_COMPILER_ID "AppleClang")
-set(CMAKE_C_COMPILER_VERSION "9.0.0.9000037")
+set(CMAKE_C_COMPILER_VERSION "9.0.0.9000038")
 set(CMAKE_C_COMPILER_WRAPPER "")
 set(CMAKE_C_STANDARD_COMPUTED_DEFAULT "11")
-set(CMAKE_C_COMPILE_FEATURES "c_function_prototypes;c_restrict;c_variadic_macros;c_static_assert")
-set(CMAKE_C90_COMPILE_FEATURES "c_function_prototypes")
-set(CMAKE_C99_COMPILE_FEATURES "c_restrict;c_variadic_macros")
-set(CMAKE_C11_COMPILE_FEATURES "c_static_assert")
+set(CMAKE_C_COMPILE_FEATURES "c_std_90;c_function_prototypes;c_std_99;c_restrict;c_variadic_macros;c_std_11;c_static_assert")
+set(CMAKE_C90_COMPILE_FEATURES "c_std_90;c_function_prototypes")
+set(CMAKE_C99_COMPILE_FEATURES "c_std_99;c_restrict;c_variadic_macros")
+set(CMAKE_C11_COMPILE_FEATURES "c_std_11;c_static_assert")
 
 set(CMAKE_C_PLATFORM_ID "Darwin")
 set(CMAKE_C_SIMULATE_ID "")
@@ -62,6 +62,7 @@ endif()
 
 
 
-set(CMAKE_C_IMPLICIT_LINK_LIBRARIES "to_library;/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/lib/darwin/libclang_rt.osx.a")
+
+set(CMAKE_C_IMPLICIT_LINK_LIBRARIES "")
 set(CMAKE_C_IMPLICIT_LINK_DIRECTORIES "/usr/lib;/usr/local/lib")
 set(CMAKE_C_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "/Library/Frameworks;/System/Library/Frameworks")

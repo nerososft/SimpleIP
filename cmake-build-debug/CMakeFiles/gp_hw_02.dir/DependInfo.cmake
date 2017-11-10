@@ -4,11 +4,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/neroyang/project/gp_hw_02/Board.cpp" "/Users/neroyang/project/gp_hw_02/cmake-build-debug/CMakeFiles/gp_hw_02.dir/Board.cpp.o"
   "/Users/neroyang/project/gp_hw_02/ColorRGB.cpp" "/Users/neroyang/project/gp_hw_02/cmake-build-debug/CMakeFiles/gp_hw_02.dir/ColorRGB.cpp.o"
   "/Users/neroyang/project/gp_hw_02/Font.cpp" "/Users/neroyang/project/gp_hw_02/cmake-build-debug/CMakeFiles/gp_hw_02.dir/Font.cpp.o"
   "/Users/neroyang/project/gp_hw_02/FpsLimter.cpp" "/Users/neroyang/project/gp_hw_02/cmake-build-debug/CMakeFiles/gp_hw_02.dir/FpsLimter.cpp.o"
+  "/Users/neroyang/project/gp_hw_02/Go.cpp" "/Users/neroyang/project/gp_hw_02/cmake-build-debug/CMakeFiles/gp_hw_02.dir/Go.cpp.o"
   "/Users/neroyang/project/gp_hw_02/JPEGLoader.cpp" "/Users/neroyang/project/gp_hw_02/cmake-build-debug/CMakeFiles/gp_hw_02.dir/JPEGLoader.cpp.o"
+  "/Users/neroyang/project/gp_hw_02/MTC/MTC.cpp" "/Users/neroyang/project/gp_hw_02/cmake-build-debug/CMakeFiles/gp_hw_02.dir/MTC/MTC.cpp.o"
+  "/Users/neroyang/project/gp_hw_02/MTC/MTCNode.cpp" "/Users/neroyang/project/gp_hw_02/cmake-build-debug/CMakeFiles/gp_hw_02.dir/MTC/MTCNode.cpp.o"
   "/Users/neroyang/project/gp_hw_02/Math.cpp" "/Users/neroyang/project/gp_hw_02/cmake-build-debug/CMakeFiles/gp_hw_02.dir/Math.cpp.o"
   "/Users/neroyang/project/gp_hw_02/PNGLoader.cpp" "/Users/neroyang/project/gp_hw_02/cmake-build-debug/CMakeFiles/gp_hw_02.dir/PNGLoader.cpp.o"
   "/Users/neroyang/project/gp_hw_02/Pixel.cpp" "/Users/neroyang/project/gp_hw_02/cmake-build-debug/CMakeFiles/gp_hw_02.dir/Pixel.cpp.o"
@@ -18,6 +20,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/neroyang/project/gp_hw_02/System.cpp" "/Users/neroyang/project/gp_hw_02/cmake-build-debug/CMakeFiles/gp_hw_02.dir/System.cpp.o"
   "/Users/neroyang/project/gp_hw_02/filter/Fliter.cpp" "/Users/neroyang/project/gp_hw_02/cmake-build-debug/CMakeFiles/gp_hw_02.dir/filter/Fliter.cpp.o"
   "/Users/neroyang/project/gp_hw_02/main.cpp" "/Users/neroyang/project/gp_hw_02/cmake-build-debug/CMakeFiles/gp_hw_02.dir/main.cpp.o"
+  "/Users/neroyang/project/gp_hw_02/network/HttpService.cpp" "/Users/neroyang/project/gp_hw_02/cmake-build-debug/CMakeFiles/gp_hw_02.dir/network/HttpService.cpp.o"
   "/Users/neroyang/project/gp_hw_02/rl/Action.cpp" "/Users/neroyang/project/gp_hw_02/cmake-build-debug/CMakeFiles/gp_hw_02.dir/rl/Action.cpp.o"
   "/Users/neroyang/project/gp_hw_02/rl/PolicyIteration.cpp" "/Users/neroyang/project/gp_hw_02/cmake-build-debug/CMakeFiles/gp_hw_02.dir/rl/PolicyIteration.cpp.o"
   "/Users/neroyang/project/gp_hw_02/rl/RandomPolicyIteration.cpp" "/Users/neroyang/project/gp_hw_02/cmake-build-debug/CMakeFiles/gp_hw_02.dir/rl/RandomPolicyIteration.cpp.o"
@@ -31,7 +34,7 @@ set(CMAKE_CXX_COMPILER_ID "AppleClang")
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/usr/local/Cellar/glew/2.0.0/include"
-  "/usr/local/Cellar/glfw/3.2.1/include"
+  "/usr/local/Cellar/glfw/3.2.1/includes"
   "/System/Library/Frameworks/OpenGL.framework/Headers"
   "/usr/local/Cellar/freetype/2.7.1/include/freetype2"
   )
